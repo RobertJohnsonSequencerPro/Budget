@@ -12,8 +12,6 @@ Public Class clsSQLiteConnection
     Dim SQLiteDatabaseAdapter As New SQLiteDataAdapter
 
 
-
-
     Public Sub New()
 
     End Sub
@@ -26,38 +24,46 @@ Public Class clsSQLiteConnection
             End If
         End If
 
-        CreateATableInDatabase("Accounts")
-        'Not null, autoincrment, unique
-        AddAColumnToATable("Accounts", "AccountName", "TEXT", True)
-        AddAColumnToATable("Accounts", "StartingBalance", "TEXT", True)
-        AddAColumnToATable("Accounts", "DateOfStartingBalance", "TEXT", True)
-        AddAColumnToATable("Accounts", "AccountType", "TEXT", True)
-        AddAColumnToATable("Accounts", "IsDeleted", "INTEGER", False)
-        AddAColumnToATable("Accounts", "CalculatedBalance", "REAL", False)
+        CreateTableFromEnum(GetType(modGLobal.Account))
+        CreateTableFromEnum(GetType(modGLobal.Transaction))
+        CreateTableFromEnum(GetType(modGLobal.CalculatedAccountBalance))
 
-        CreateATableInDatabase("PlannedTransactions")
-        AddAColumnToATable("PlannedTransactions", "Date", "TEXT", True)
-        AddAColumnToATable("PlannedTransactions", "Amount", "REAL", True)
-        AddAColumnToATable("PlannedTransactions", "FromAccountName", "TEXT", True)
-        AddAColumnToATable("PlannedTransactions", "ToAccountName", "TEXT", True)
-        AddAColumnToATable("PlannedTransactions", "TransactionType", "Text", True)
-        AddAColumnToATable("Accounts", "IsDeleted", "INTEGER", False)
-        AddAColumnToATable("PlannedTransactions", "GUID", "TEXT", True)
+        Return True
+    End Function
 
-        CreateATableInDatabase("ActualTransactions")
-        AddAColumnToATable("ActualTransactions", "Date", "TEXT", True)
-        AddAColumnToATable("ActualTransactions", "Amount", "REAL", True)
-        AddAColumnToATable("ActualTransactions", "FromAccountName", "TEXT", True)
-        AddAColumnToATable("ActualTransactions", "ToAccountName", "TEXT", True)
-        AddAColumnToATable("ActualTransactions", "TransactionType", "Text", True)
-        AddAColumnToATable("Accounts", "IsDeleted", "INTEGER", False)
-        AddAColumnToATable("ActualTransactions", "GUID", "TEXT", True)
+    Public Function CreateTableFromEnum(ByRef Enumeration As Type) As Boolean
+        'This function assumes that the Enum name is the desired table name and that each item in the enum is a desired column name.
+        'It further assumes that the first 3 letters of the column name indicate the data type.
+        'All tables are created with a few utility columns - txtGUID, booIsDeleted, and datRecordCreated
 
-        CreateATableInDatabase("AccountGraphs")
-        AddAColumnToATable("AccountGraphs", "AccountName", "TEXT", True)
-        AddAColumnToATable("AccountGraphs", "Value", "REAL", True)
-        AddAColumnToATable("AccountGraphs", "Date", "TEXT", True)
-
+        Try
+            CreateATableInDatabase(Enumeration.Name)
+            Dim Columns As Array = System.Enum.GetNames(Enumeration)
+            For Each ColumnName As String In Columns
+                Dim Prefix As String = ColumnName.Substring(0, 3)
+                Select Case Prefix
+                    Case modGLobal.SQLiteDataTypePrefixes.txt.ToString
+                        AddAColumnToATable(Enumeration.Name, ColumnName, "TEXT")
+                    Case modGLobal.SQLiteDataTypePrefixes.dec.ToString
+                        AddAColumnToATable(Enumeration.Name, ColumnName, "REAL")
+                    Case modGLobal.SQLiteDataTypePrefixes.blb.ToString
+                        AddAColumnToATable(Enumeration.Name, ColumnName, "BLOB")
+                    Case modGLobal.SQLiteDataTypePrefixes.int.ToString
+                        AddAColumnToATable(Enumeration.Name, ColumnName, "INTEGER")
+                    Case modGLobal.SQLiteDataTypePrefixes.boo.ToString
+                        AddAColumnToATable(Enumeration.Name, ColumnName, "INTEGER")
+                    Case modGLobal.SQLiteDataTypePrefixes.dat.ToString
+                        AddAColumnToATable(Enumeration.Name, ColumnName, "TEXT")
+                    Case modGLobal.SQLiteDataTypePrefixes.dbl.ToString
+                        AddAColumnToATable(Enumeration.Name, ColumnName, "REAL")
+                    Case Else
+                        MessageBox.Show("The data type " & Prefix & " is not recognized.")
+                End Select
+            Next
+        Catch ex As Exception
+            MessageBox.Show("Error in clsSQLiteConnection.CreateTableFromEnum. Error is " & ex.Message)
+            Return False
+        End Try
         Return True
     End Function
 
@@ -65,12 +71,13 @@ Public Class clsSQLiteConnection
         Return System.IO.File.Exists(Fullpath)
     End Function
 
-    Public Function AddAColumnToATable(TableName As String, ColumnName As String, DataType As String, NotNull As Boolean) As Boolean
+    Public Function AddAColumnToATable(TableName As String, ColumnName As String, DataType As String) As Boolean
         'Allowed DataTypes are INTEGER, TEXT, BLOB, REAL, NUMERIC
         Try
             Using SQLiteConn As New SQLiteConnection(ConnectionString)
                 Dim dt As New DataTable
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName, SQLiteConn)
+                MessageBox.Show("SELECT * FROM '" & TableName & "'")
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "'", SQLiteConn)
                 SQLiteConn.Open()
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dt)
@@ -78,14 +85,15 @@ Public Class clsSQLiteConnection
                     'The column already exists so do not add it.
                     Return True
                 End If
-                Dim AddColumnQuery As String = "ALTER TABLE " & TableName & " ADD COLUMN " & ColumnName & " " & DataType
+                MessageBox.Show("ALTER TABLE " & TableName & " ADD COLUMN '" & ColumnName & "' " & DataType)
+                Dim AddColumnQuery As String = "ALTER TABLE '" & TableName & "' ADD COLUMN '" & ColumnName & "' " & DataType
                 Dim cmd2 As New SQLiteCommand(AddColumnQuery, SQLiteConn)
                 cmd2.ExecuteNonQuery()
                 SQLiteConn.Close()
             End Using
             Return True
         Catch ex As Exception
-            MessageBox.Show("Error in AddAColumnToATable. " & ex.Message)
+            MessageBox.Show("Error in clsSQLiteConnection.AddAColumnToATable. The error is " & ex.Message)
             Return False
         End Try
     End Function
@@ -248,33 +256,6 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
-    Public Function AddAColumnToATable(TableName As String, ColumnName As String, DataType As String) As Boolean
-        'Allowed DataTypes are INTEGER, TEXT, BLOB, REAL, NUMERIC
-
-        Try
-            Using SQLiteConn As New SQLiteConnection(ConnectionString)
-                Dim dt As New DataTable
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName, SQLiteConn)
-                SQLiteConn.Open()
-                Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
-                SQLiteDatabaseAdapter.Fill(dt)
-                If dt.Columns.Contains(ColumnName) Then
-                    'The column already exists so do not add it.
-                    Return True
-                End If
-                Dim AddColumnQuery As String = "ALTER TABLE " & TableName & " ADD COLUMN " & ColumnName & " " & DataType
-                Dim cmd2 As New SQLiteCommand(AddColumnQuery, SQLiteConn)
-                cmd2.ExecuteNonQuery()
-                SQLiteConn.Close()
-            End Using
-            Return True
-        Catch ex As Exception
-            MessageBox.Show("Error in AddAColumnToATable. " & ex.Message)
-            Return False
-        End Try
-    End Function
-
 
     Public Function PopulateADataTable(ByRef TargetDataTable As DataTable, TableName As String) As Boolean
 

@@ -100,22 +100,22 @@ Public Class Form1
 
         Dim SQLiteServer As New clsSQLiteConnection
         SQLiteServer.CreateSQLiteDatabase()
-        SQLiteServer.AddDefaultsToDatabase()
+        'SQLiteServer.AddDefaultsToDatabase()
 
-        GetAccounts()
-        'MessageBox.Show(dtFromAccounts.Rows.Count.ToString)
-        GetPlannedTransactions()
-        GetActualTransactions()
-        CalculateCurrentAccountBalances()
-        ConfigureAccountsDataGridView()
-        ConfigureActualTransactionsDataGridView()
-        ConfigurePlannedTransactionsDataGridView()
-        ConfigureAccountsPlannedDataGridView()
+        'GetAccounts()
+        ''MessageBox.Show(dtFromAccounts.Rows.Count.ToString)
+        'GetPlannedTransactions()
+        'GetActualTransactions()
+        'CalculateCurrentAccountBalances()
+        'ConfigureAccountsDataGridView()
+        'ConfigureActualTransactionsDataGridView()
+        'ConfigurePlannedTransactionsDataGridView()
+        'ConfigureAccountsPlannedDataGridView()
 
-        PopulateAccountNameComboBoxes()
-        PopulateFilteredTransactions()
-        PopulateTransactionTypeComboBoxes()
-        PopulateAccountTypeComboBox()
+        'PopulateAccountNameComboBoxes()
+        'PopulateFilteredTransactions()
+        'PopulateTransactionTypeComboBoxes()
+        'PopulateAccountTypeComboBox()
 
     End Sub
 #End Region
@@ -630,108 +630,108 @@ Public Class Form1
 
     End Sub
 
-    Private Sub SetAvailableAccountsBasedOnTransactionType(ActualTransaction As Boolean, TransactionType As String)
-        dtFromAccounts.Reset()
-        dtToAccounts.Reset()
+    'Private Sub SetAvailableAccountsBasedOnTransactionType(ActualTransaction As Boolean, TransactionType As String)
+    '    dtFromAccounts.Reset()
+    '    dtToAccounts.Reset()
 
-        dtFromAccounts = dtAccounts.Clone
-        dtToAccounts = dtAccounts.Clone
+    '    dtFromAccounts = dtAccounts.Clone
+    '    dtToAccounts = dtAccounts.Clone
 
-        If ActualTransaction = True Then
-            Select Case TransactionType
-                Case TransactionTypes.Borrow_Cash
-                    For Each dr As DataRow In dtAccounts.Rows
-                        If dr.Item("AccountType").ToString = AccountTypes.Debt Then
-                            dtFromAccounts.ImportRow(dr)
-                        ElseIf dr.Item("AccountType").ToString = AccountTypes.Cash Then
-                            dtToAccounts.ImportRow(dr)
-                        End If
-                    Next
-                Case TransactionTypes.Earn
-                    For Each dr As DataRow In dtAccounts.Rows
-                        If dr.Item("AccountType").ToString = AccountTypes.Income Then
-                            dtFromAccounts.ImportRow(dr)
-                        ElseIf dr.Item("AccountType").ToString = AccountTypes.Cash Then
-                            dtToAccounts.ImportRow(dr)
-                        End If
-                    Next
-                Case TransactionTypes.Liquidate
-                    For Each dr As DataRow In dtAccounts.Rows
-                        If dr.Item("AccountType").ToString = AccountTypes.Savings Then
-                            dtFromAccounts.ImportRow(dr)
-                        ElseIf dr.Item("AccountType").ToString = AccountTypes.Cash Then
-                            dtToAccounts.ImportRow(dr)
-                        End If
-                    Next
-                Case TransactionTypes.Payoff
-                    For Each dr As DataRow In dtAccounts.Rows
-                        If dr.Item("AccountType").ToString = AccountTypes.Cash Then
-                            dtFromAccounts.ImportRow(dr)
-                        ElseIf dr.Item("AccountType").ToString = AccountTypes.Debt Then
-                            dtToAccounts.ImportRow(dr)
-                        End If
-                    Next
-                Case TransactionTypes.Reallocate
-                    For Each dr As DataRow In dtAccounts.Rows
-                        If dr.Item("AccountType").ToString = AccountTypes.Savings Then
-                            dtFromAccounts.ImportRow(dr)
-                        ElseIf dr.Item("AccountType").ToString = AccountTypes.Savings Then
-                            dtToAccounts.ImportRow(dr)
-                        End If
-                    Next
-                Case TransactionTypes.Save
-                    For Each dr As DataRow In dtAccounts.Rows
-                        If dr.Item("AccountType").ToString = AccountTypes.Cash Then
-                            dtFromAccounts.ImportRow(dr)
-                        ElseIf dr.Item("AccountType").ToString = AccountTypes.Savings Then
-                            dtToAccounts.ImportRow(dr)
-                        End If
-                    Next
-                Case TransactionTypes.Spend_Cash
-                    For Each dr As DataRow In dtAccounts.Rows
-                        If dr.Item("AccountType").ToString = AccountTypes.Cash Then
-                            dtFromAccounts.ImportRow(dr)
-                        ElseIf dr.Item("AccountType").ToString = AccountTypes.Expense Then
-                            dtToAccounts.ImportRow(dr)
-                        End If
-                    Next
-                Case TransactionTypes.Spend_on_Credit
-                    For Each dr As DataRow In dtAccounts.Rows
-                        If dr.Item("AccountType").ToString = AccountTypes.Debt Then
-                            dtFromAccounts.ImportRow(dr)
-                        ElseIf dr.Item("AccountType").ToString = AccountTypes.Expense Then
-                            dtToAccounts.ImportRow(dr)
-                        End If
-                    Next
-            End Select
-            For Each dgvRow As DataGridViewRow In dgvActualTransactions.Rows
-                'CType(dgvActualTransactions.Columns(1), DataGridViewComboBoxColumn).Items.Add(dgvRow.DataBoundItem("Tr"))
-            Next
-        Else
+    '    If ActualTransaction = True Then
+    '        Select Case TransactionType
+    '            Case TransactionTypes.Borrow_Cash
+    '                For Each dr As DataRow In dtAccounts.Rows
+    '                    If dr.Item("AccountType").ToString = AccountTypes.Debt Then
+    '                        dtFromAccounts.ImportRow(dr)
+    '                    ElseIf dr.Item("AccountType").ToString = AccountTypes.Cash Then
+    '                        dtToAccounts.ImportRow(dr)
+    '                    End If
+    '                Next
+    '            Case TransactionTypes.Earn
+    '                For Each dr As DataRow In dtAccounts.Rows
+    '                    If dr.Item("AccountType").ToString = AccountTypes.Income Then
+    '                        dtFromAccounts.ImportRow(dr)
+    '                    ElseIf dr.Item("AccountType").ToString = AccountTypes.Cash Then
+    '                        dtToAccounts.ImportRow(dr)
+    '                    End If
+    '                Next
+    '            Case TransactionTypes.Liquidate
+    '                For Each dr As DataRow In dtAccounts.Rows
+    '                    If dr.Item("AccountType").ToString = AccountTypes.Savings Then
+    '                        dtFromAccounts.ImportRow(dr)
+    '                    ElseIf dr.Item("AccountType").ToString = AccountTypes.Cash Then
+    '                        dtToAccounts.ImportRow(dr)
+    '                    End If
+    '                Next
+    '            Case TransactionTypes.Payoff
+    '                For Each dr As DataRow In dtAccounts.Rows
+    '                    If dr.Item("AccountType").ToString = AccountTypes.Cash Then
+    '                        dtFromAccounts.ImportRow(dr)
+    '                    ElseIf dr.Item("AccountType").ToString = AccountTypes.Debt Then
+    '                        dtToAccounts.ImportRow(dr)
+    '                    End If
+    '                Next
+    '            Case TransactionTypes.Reallocate
+    '                For Each dr As DataRow In dtAccounts.Rows
+    '                    If dr.Item("AccountType").ToString = AccountTypes.Savings Then
+    '                        dtFromAccounts.ImportRow(dr)
+    '                    ElseIf dr.Item("AccountType").ToString = AccountTypes.Savings Then
+    '                        dtToAccounts.ImportRow(dr)
+    '                    End If
+    '                Next
+    '            Case TransactionTypes.Save
+    '                For Each dr As DataRow In dtAccounts.Rows
+    '                    If dr.Item("AccountType").ToString = AccountTypes.Cash Then
+    '                        dtFromAccounts.ImportRow(dr)
+    '                    ElseIf dr.Item("AccountType").ToString = AccountTypes.Savings Then
+    '                        dtToAccounts.ImportRow(dr)
+    '                    End If
+    '                Next
+    '            Case TransactionTypes.Spend_Cash
+    '                For Each dr As DataRow In dtAccounts.Rows
+    '                    If dr.Item("AccountType").ToString = AccountTypes.Cash Then
+    '                        dtFromAccounts.ImportRow(dr)
+    '                    ElseIf dr.Item("AccountType").ToString = AccountTypes.Expense Then
+    '                        dtToAccounts.ImportRow(dr)
+    '                    End If
+    '                Next
+    '            Case TransactionTypes.Spend_on_Credit
+    '                For Each dr As DataRow In dtAccounts.Rows
+    '                    If dr.Item("AccountType").ToString = AccountTypes.Debt Then
+    '                        dtFromAccounts.ImportRow(dr)
+    '                    ElseIf dr.Item("AccountType").ToString = AccountTypes.Expense Then
+    '                        dtToAccounts.ImportRow(dr)
+    '                    End If
+    '                Next
+    '        End Select
+    '        For Each dgvRow As DataGridViewRow In dgvActualTransactions.Rows
+    '            'CType(dgvActualTransactions.Columns(1), DataGridViewComboBoxColumn).Items.Add(dgvRow.DataBoundItem("Tr"))
+    '        Next
+    '    Else
 
-        End If
-    End Sub
+    '    End If
+    'End Sub
 
-    Private Sub dgvActualTransactions_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvActualTransactions.CellEndEdit
-        Select Case dgvActualTransactions.CurrentCell.Value.ToString
-            Case TransactionTypes.Borrow_Cash
-                SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Borrow_Cash)
-            Case TransactionTypes.Earn
-                SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Earn)
-            Case TransactionTypes.Liquidate
-                SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Liquidate)
-            Case TransactionTypes.Payoff
-                SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Payoff)
-            Case TransactionTypes.Reallocate
-                SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Reallocate)
-            Case TransactionTypes.Save
-                SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Save)
-            Case TransactionTypes.Spend_Cash
-                SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Spend_Cash)
-            Case TransactionTypes.Spend_on_Credit
-                SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Spend_on_Credit)
-        End Select
-    End Sub
+    'Private Sub dgvActualTransactions_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvActualTransactions.CellEndEdit
+    '    Select Case dgvActualTransactions.CurrentCell.Value.ToString
+    '        Case TransactionTypes.Borrow_Cash
+    '            SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Borrow_Cash)
+    '        Case TransactionTypes.Earn
+    '            SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Earn)
+    '        Case TransactionTypes.Liquidate
+    '            SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Liquidate)
+    '        Case TransactionTypes.Payoff
+    '            SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Payoff)
+    '        Case TransactionTypes.Reallocate
+    '            SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Reallocate)
+    '        Case TransactionTypes.Save
+    '            SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Save)
+    '        Case TransactionTypes.Spend_Cash
+    '            SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Spend_Cash)
+    '        Case TransactionTypes.Spend_on_Credit
+    '            SetAvailableAccountsBasedOnTransactionType(True, TransactionTypes.Spend_on_Credit)
+    '    End Select
+    'End Sub
 
     Public Function CalculateBalance(ByVal AccountName As String, ByVal StartDate As Date, ByVal EndDate As Date, ByVal StartingBalance As Decimal, ByRef Transactions As DataTable) As Decimal
         'The "Transactions" datatable expects a table with columns guid(int), Date(date), Amount(decimal) FromAccountName(string), ToAccountName(string), TransactionType(string)
