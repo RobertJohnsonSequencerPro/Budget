@@ -93,10 +93,7 @@ Public Class Form1
             .Rows.Add(drType13)
         End With
 
-        dgvAccounts.AutoGenerateColumns = False
-        dgvPlannedTransactions.AutoGenerateColumns = False
-        dgvActualTransactions.AutoGenerateColumns = False
-        dgvPlannedTransactions.AutoGenerateColumns = False
+
 
         Dim SQLiteServer As New clsSQLiteConnection
         SQLiteServer.CreateSQLiteDatabase()
@@ -117,6 +114,16 @@ Public Class Form1
         'PopulateTransactionTypeComboBoxes()
         'PopulateAccountTypeComboBox()
 
+        'Dim dtAccounts As New DataTable
+        'SQLiteServer.PopulateADataTable(dtAccounts, "Account")
+        'Dim Accounts As New List(Of String)
+        'For Each dr As DataRow In dtAccounts.Rows
+        '    Accounts.Add(dr.Item(modGLobal.Account.txtAccountName.ToString).ToString)
+        'Next
+
+        'Dim TransactionControl As New ctlTransaction(SQLiteServer.CreateGUID(), Accounts)
+        'TabPage4.Controls.Add(TransactionControl)
+
     End Sub
 #End Region
 
@@ -124,411 +131,411 @@ Public Class Form1
 #Region "Methods"
 
     Private Sub PopulateTransactionTypeComboBoxes()
-        cmbCreateTransactionType.Items.Clear()
-        cmbFilterTransactionType.Items.Clear()
-        cmbCreateTransactionType.Items.Add(TransactionTypes.Borrow_Cash)
-        cmbFilterTransactionType.Items.Add(TransactionTypes.Borrow_Cash)
-        cmbCreateTransactionType.Items.Add(TransactionTypes.Earn)
-        cmbFilterTransactionType.Items.Add(TransactionTypes.Earn)
-        cmbCreateTransactionType.Items.Add(TransactionTypes.Liquidate)
-        cmbFilterTransactionType.Items.Add(TransactionTypes.Liquidate)
-        cmbCreateTransactionType.Items.Add(TransactionTypes.Payoff)
-        cmbFilterTransactionType.Items.Add(TransactionTypes.Payoff)
-        cmbCreateTransactionType.Items.Add(TransactionTypes.Reallocate)
-        cmbFilterTransactionType.Items.Add(TransactionTypes.Reallocate)
-        cmbCreateTransactionType.Items.Add(TransactionTypes.Save)
-        cmbFilterTransactionType.Items.Add(TransactionTypes.Save)
-        cmbCreateTransactionType.Items.Add(TransactionTypes.Spend_Cash)
-        cmbFilterTransactionType.Items.Add(TransactionTypes.Spend_Cash)
-        cmbCreateTransactionType.Items.Add(TransactionTypes.Spend_on_Credit)
-        cmbFilterTransactionType.Items.Add(TransactionTypes.Spend_on_Credit)
-        cmbCreateTransactionType.SelectedIndex = 5
+        'cmbCreateTransactionType.Items.Clear()
+        'cmbFilterTransactionType.Items.Clear()
+        'cmbCreateTransactionType.Items.Add(TransactionTypes.Borrow_Cash)
+        'cmbFilterTransactionType.Items.Add(TransactionTypes.Borrow_Cash)
+        'cmbCreateTransactionType.Items.Add(TransactionTypes.Earn)
+        'cmbFilterTransactionType.Items.Add(TransactionTypes.Earn)
+        'cmbCreateTransactionType.Items.Add(TransactionTypes.Liquidate)
+        'cmbFilterTransactionType.Items.Add(TransactionTypes.Liquidate)
+        'cmbCreateTransactionType.Items.Add(TransactionTypes.Payoff)
+        'cmbFilterTransactionType.Items.Add(TransactionTypes.Payoff)
+        'cmbCreateTransactionType.Items.Add(TransactionTypes.Reallocate)
+        'cmbFilterTransactionType.Items.Add(TransactionTypes.Reallocate)
+        'cmbCreateTransactionType.Items.Add(TransactionTypes.Save)
+        'cmbFilterTransactionType.Items.Add(TransactionTypes.Save)
+        'cmbCreateTransactionType.Items.Add(TransactionTypes.Spend_Cash)
+        'cmbFilterTransactionType.Items.Add(TransactionTypes.Spend_Cash)
+        'cmbCreateTransactionType.Items.Add(TransactionTypes.Spend_on_Credit)
+        'cmbFilterTransactionType.Items.Add(TransactionTypes.Spend_on_Credit)
+        'cmbCreateTransactionType.SelectedIndex = 5
 
     End Sub
 
     Private Sub PopulateAccountTypeComboBox()
-        cmbNewAccountType.Items.Clear()
-        cmbNewAccountType.Items.Add(AccountTypes.Cash)
-        cmbNewAccountType.Items.Add(AccountTypes.Debt)
-        cmbNewAccountType.Items.Add(AccountTypes.Expense)
-        cmbNewAccountType.Items.Add(AccountTypes.Income)
-        cmbNewAccountType.Items.Add(AccountTypes.Savings)
-        cmbNewAccountType.SelectedIndex = 4
+        'cmbNewAccountType.Items.Clear()
+        'cmbNewAccountType.Items.Add(AccountTypes.Cash)
+        'cmbNewAccountType.Items.Add(AccountTypes.Debt)
+        'cmbNewAccountType.Items.Add(AccountTypes.Expense)
+        'cmbNewAccountType.Items.Add(AccountTypes.Income)
+        'cmbNewAccountType.Items.Add(AccountTypes.Savings)
+        'cmbNewAccountType.SelectedIndex = 4
     End Sub
 
-    Private Sub PopulateFilteredTransactions()
+    'Private Sub PopulateFilteredTransactions()
 
-        cmbFilteredTransactions.Items.Clear()
-        Dim dtAllTransactions As New DataTable
-        Dim dtRemainingTransactions As New DataTable
-        Dim dtFilteredTransactions As New DataTable
-        dtAllTransactions = dtActualTransactions.Clone
-        dtFilteredTransactions = dtActualTransactions.Clone
-        dtRemainingTransactions = dtActualTransactions.Clone
-        For Each dr As DataRow In dtActualTransactions.Rows
-            dtAllTransactions.ImportRow(dr)
-        Next dr
-        For Each dr As DataRow In dtPlannedTransactions.Rows
-            dtAllTransactions.ImportRow(dr)
-        Next dr
-        For Each dr As DataRow In dtAllTransactions.Rows
-            If Not cmbFilterTransactionType.Text = "" Then
-                If Not dr.Item("TransactionType").ToString = cmbFilterTransactionType.Text Then
-                    dtRemainingTransactions.ImportRow(dr)
-                Else
-                    dtFilteredTransactions.ImportRow(dr)
-                End If
-            Else
-                dtFilteredTransactions.ImportRow(dr)
-            End If
-        Next dr
-        dtAllTransactions.Clear()
-        For Each dr As DataRow In dtRemainingTransactions.Rows
-            dtAllTransactions.ImportRow(dr)
-        Next
-        dtRemainingTransactions.Clear()
+    '    cmbFilteredTransactions.Items.Clear()
+    '    Dim dtAllTransactions As New DataTable
+    '    Dim dtRemainingTransactions As New DataTable
+    '    Dim dtFilteredTransactions As New DataTable
+    '    dtAllTransactions = dtActualTransactions.Clone
+    '    dtFilteredTransactions = dtActualTransactions.Clone
+    '    dtRemainingTransactions = dtActualTransactions.Clone
+    '    For Each dr As DataRow In dtActualTransactions.Rows
+    '        dtAllTransactions.ImportRow(dr)
+    '    Next dr
+    '    For Each dr As DataRow In dtPlannedTransactions.Rows
+    '        dtAllTransactions.ImportRow(dr)
+    '    Next dr
+    '    For Each dr As DataRow In dtAllTransactions.Rows
+    '        If Not cmbFilterTransactionType.Text = "" Then
+    '            If Not dr.Item("TransactionType").ToString = cmbFilterTransactionType.Text Then
+    '                dtRemainingTransactions.ImportRow(dr)
+    '            Else
+    '                dtFilteredTransactions.ImportRow(dr)
+    '            End If
+    '        Else
+    '            dtFilteredTransactions.ImportRow(dr)
+    '        End If
+    '    Next dr
+    '    dtAllTransactions.Clear()
+    '    For Each dr As DataRow In dtRemainingTransactions.Rows
+    '        dtAllTransactions.ImportRow(dr)
+    '    Next
+    '    dtRemainingTransactions.Clear()
 
-        For Each dr As DataRow In dtAllTransactions.Rows
-            If Not cmbFilterTransactionFromAccount.Text = "" Then
-                If Not dr.Item("FromAccountname").ToString = cmbFilterTransactionFromAccount.Text Then
-                    dtRemainingTransactions.ImportRow(dr)
-                Else
-                    dtFilteredTransactions.ImportRow(dr)
-                End If
-            Else
-                dtFilteredTransactions.ImportRow(dr)
-            End If
-        Next dr
-        dtAllTransactions.Clear()
-        For Each dr As DataRow In dtRemainingTransactions.Rows
-            dtAllTransactions.ImportRow(dr)
-        Next
-        dtRemainingTransactions.Clear()
+    '    For Each dr As DataRow In dtAllTransactions.Rows
+    '        If Not cmbFilterTransactionFromAccount.Text = "" Then
+    '            If Not dr.Item("FromAccountname").ToString = cmbFilterTransactionFromAccount.Text Then
+    '                dtRemainingTransactions.ImportRow(dr)
+    '            Else
+    '                dtFilteredTransactions.ImportRow(dr)
+    '            End If
+    '        Else
+    '            dtFilteredTransactions.ImportRow(dr)
+    '        End If
+    '    Next dr
+    '    dtAllTransactions.Clear()
+    '    For Each dr As DataRow In dtRemainingTransactions.Rows
+    '        dtAllTransactions.ImportRow(dr)
+    '    Next
+    '    dtRemainingTransactions.Clear()
 
-        For Each dr As DataRow In dtAllTransactions.Rows
-            If Not cmbFilterTransactionToAccount.Text = "" Then
-                If Not dr.Item("ToAccountName").ToString = cmbFilterTransactionToAccount.Text Then
-                    dtRemainingTransactions.ImportRow(dr)
-                Else
-                    dtFilteredTransactions.ImportRow(dr)
-                End If
-            Else
-                dtFilteredTransactions.ImportRow(dr)
-            End If
-        Next dr
-        dtAllTransactions.Clear()
-        For Each dr As DataRow In dtRemainingTransactions.Rows
-            dtAllTransactions.ImportRow(dr)
-        Next
-        dtRemainingTransactions.Clear()
+    '    For Each dr As DataRow In dtAllTransactions.Rows
+    '        If Not cmbFilterTransactionToAccount.Text = "" Then
+    '            If Not dr.Item("ToAccountName").ToString = cmbFilterTransactionToAccount.Text Then
+    '                dtRemainingTransactions.ImportRow(dr)
+    '            Else
+    '                dtFilteredTransactions.ImportRow(dr)
+    '            End If
+    '        Else
+    '            dtFilteredTransactions.ImportRow(dr)
+    '        End If
+    '    Next dr
+    '    dtAllTransactions.Clear()
+    '    For Each dr As DataRow In dtRemainingTransactions.Rows
+    '        dtAllTransactions.ImportRow(dr)
+    '    Next
+    '    dtRemainingTransactions.Clear()
 
-        For Each dr As DataRow In dtAllTransactions.Rows
-            If IsNumeric(cmbFilterTransactionType.Text) Then
-                If Not CDec(dr.Item("Amount")) = CDec(txtFilterTransactionAmount.Text) Then
-                    dtRemainingTransactions.ImportRow(dr)
-                Else
-                    dtFilteredTransactions.ImportRow(dr)
-                End If
-            Else
-                dtFilteredTransactions.ImportRow(dr)
-            End If
-        Next dr
-        dtAllTransactions.Clear()
-        For Each dr As DataRow In dtRemainingTransactions.Rows
-            dtAllTransactions.ImportRow(dr)
-        Next
-        dtRemainingTransactions.Clear()
+    '    For Each dr As DataRow In dtAllTransactions.Rows
+    '        If IsNumeric(cmbFilterTransactionType.Text) Then
+    '            If Not CDec(dr.Item("Amount")) = CDec(txtFilterTransactionAmount.Text) Then
+    '                dtRemainingTransactions.ImportRow(dr)
+    '            Else
+    '                dtFilteredTransactions.ImportRow(dr)
+    '            End If
+    '        Else
+    '            dtFilteredTransactions.ImportRow(dr)
+    '        End If
+    '    Next dr
+    '    dtAllTransactions.Clear()
+    '    For Each dr As DataRow In dtRemainingTransactions.Rows
+    '        dtAllTransactions.ImportRow(dr)
+    '    Next
+    '    dtRemainingTransactions.Clear()
 
-        For Each dr As DataRow In dtAllTransactions.Rows
-            If Not CDate(dr.Item("Date")) >= dtpFilterTransactionStartDate.Value Or Not CDate(dr.Item("Date")) <= dtpFilterTransactionEndDate.Value Then
-                dtRemainingTransactions.ImportRow(dr)
-            Else
-                dtFilteredTransactions.ImportRow(dr)
-            End If
-        Next dr
-        dtAllTransactions.Clear()
-        For Each dr As DataRow In dtRemainingTransactions.Rows
-            dtAllTransactions.ImportRow(dr)
-        Next
-        dtRemainingTransactions.Clear()
+    '    For Each dr As DataRow In dtAllTransactions.Rows
+    '        If Not CDate(dr.Item("Date")) >= dtpFilterTransactionStartDate.Value Or Not CDate(dr.Item("Date")) <= dtpFilterTransactionEndDate.Value Then
+    '            dtRemainingTransactions.ImportRow(dr)
+    '        Else
+    '            dtFilteredTransactions.ImportRow(dr)
+    '        End If
+    '    Next dr
+    '    dtAllTransactions.Clear()
+    '    For Each dr As DataRow In dtRemainingTransactions.Rows
+    '        dtAllTransactions.ImportRow(dr)
+    '    Next
+    '    dtRemainingTransactions.Clear()
 
-        For Each dr As DataRow In dtFilteredTransactions.Rows
-            cmbFilteredTransactions.Items.Add("$" & dr.Item("Amount").ToString & " From " & dr.Item("FromAccountname").ToString & " To " & dr.Item("ToAccountName").ToString & " On " & dr.Item("Date").ToString & " Transaction Type " & dr.Item("TransactionType").ToString)
-        Next dr
+    '    For Each dr As DataRow In dtFilteredTransactions.Rows
+    '        cmbFilteredTransactions.Items.Add("$" & dr.Item("Amount").ToString & " From " & dr.Item("FromAccountname").ToString & " To " & dr.Item("ToAccountName").ToString & " On " & dr.Item("Date").ToString & " Transaction Type " & dr.Item("TransactionType").ToString)
+    '    Next dr
 
-    End Sub
+    'End Sub
 
-    Private Sub PopulateAccountNameComboBoxes()
-        cmbSelectAccount.Items.Clear()
+    'Private Sub PopulateAccountNameComboBoxes()
+    '    cmbSelectAccount.Items.Clear()
 
-        For Each dr As DataRow In dtAccounts.Rows
-            If Not CBool(dr.Item("IsDeleted")) Then
-                cmbSelectAccount.Items.Add(dr.Item("AccountName").ToString)
-                cmbCreateTransactionFromAccount.Items.Add(dr.Item("AccountName").ToString)
-                cmbCreateTransactionToAccount.Items.Add(dr.Item("AccountName").ToString)
-                cmbFilterTransactionFromAccount.Items.Add(dr.Item("AccountName").ToString)
-                cmbFilterTransactionToAccount.Items.Add(dr.Item("AccountName").ToString)
-                cmbRemoveAccountName.Items.Add(dr.Item("AccountName").ToString)
-            Else
-                cmbRestoreAccountName.Items.Add(dr.Item("AccountName").ToString)
-            End If
-        Next dr
-        cmbSelectAccount.SelectedIndex = 0
-    End Sub
+    '    For Each dr As DataRow In dtAccounts.Rows
+    '        If Not CBool(dr.Item("IsDeleted")) Then
+    '            cmbSelectAccount.Items.Add(dr.Item("AccountName").ToString)
+    '            cmbCreateTransactionFromAccount.Items.Add(dr.Item("AccountName").ToString)
+    '            cmbCreateTransactionToAccount.Items.Add(dr.Item("AccountName").ToString)
+    '            cmbFilterTransactionFromAccount.Items.Add(dr.Item("AccountName").ToString)
+    '            cmbFilterTransactionToAccount.Items.Add(dr.Item("AccountName").ToString)
+    '            cmbRemoveAccountName.Items.Add(dr.Item("AccountName").ToString)
+    '        Else
+    '            cmbRestoreAccountName.Items.Add(dr.Item("AccountName").ToString)
+    '        End If
+    '    Next dr
+    '    cmbSelectAccount.SelectedIndex = 0
+    'End Sub
 
-    Private Sub ConfigureAccountsDataGridView()
-        Dim AccountName As New DataGridViewTextBoxColumn
-        With AccountName
-            .HeaderText = "Account Name"
-            .Name = "AccountName"
-            .Width = 300
-            dgvAccounts.Columns.Add(AccountName)
-            .DataPropertyName = "AccountName"
-        End With
+    'Private Sub ConfigureAccountsDataGridView()
+    '    Dim AccountName As New DataGridViewTextBoxColumn
+    '    With AccountName
+    '        .HeaderText = "Account Name"
+    '        .Name = "AccountName"
+    '        .Width = 300
+    '        dgvAccounts.Columns.Add(AccountName)
+    '        .DataPropertyName = "AccountName"
+    '    End With
 
-        Dim CalculatedBalance As New DataGridViewTextBoxColumn
-        With CalculatedBalance
-            .HeaderText = "Balance"
-            .Name = "CalculatedBalance"
-            .ReadOnly = True
-            .Width = 150
-            dgvAccounts.Columns.Add(CalculatedBalance)
-            .DataPropertyName = "CalculatedBalance"
-        End With
+    '    Dim CalculatedBalance As New DataGridViewTextBoxColumn
+    '    With CalculatedBalance
+    '        .HeaderText = "Balance"
+    '        .Name = "CalculatedBalance"
+    '        .ReadOnly = True
+    '        .Width = 150
+    '        dgvAccounts.Columns.Add(CalculatedBalance)
+    '        .DataPropertyName = "CalculatedBalance"
+    '    End With
 
-        Dim cmbAccountType As New DataGridViewComboBoxColumn
-        With cmbAccountType
-            .HeaderText = "Account Type"
-            .Name = "cmbAccountType"
-            .Width = 150
-            dgvAccounts.Columns.Add(cmbAccountType)
-            .DataPropertyName = "Type"
-            For Each dr As DataRow In dtAccountTypes.Rows
-                .Items.Add(dr.Item("Type").ToString)
-            Next
-            .DataPropertyName = "AccountType"
-        End With
+    '    Dim cmbAccountType As New DataGridViewComboBoxColumn
+    '    With cmbAccountType
+    '        .HeaderText = "Account Type"
+    '        .Name = "cmbAccountType"
+    '        .Width = 150
+    '        dgvAccounts.Columns.Add(cmbAccountType)
+    '        .DataPropertyName = "Type"
+    '        For Each dr As DataRow In dtAccountTypes.Rows
+    '            .Items.Add(dr.Item("Type").ToString)
+    '        Next
+    '        .DataPropertyName = "AccountType"
+    '    End With
 
-        Dim StartingBalance As New DataGridViewTextBoxColumn
-        With StartingBalance
-            .HeaderText = "Starting Balance"
-            .Name = "StartingBalance"
-            .Width = 150
-            dgvAccounts.Columns.Add(StartingBalance)
-            .DataPropertyName = "StartingBalance"
-        End With
+    '    Dim StartingBalance As New DataGridViewTextBoxColumn
+    '    With StartingBalance
+    '        .HeaderText = "Starting Balance"
+    '        .Name = "StartingBalance"
+    '        .Width = 150
+    '        dgvAccounts.Columns.Add(StartingBalance)
+    '        .DataPropertyName = "StartingBalance"
+    '    End With
 
-        Dim DateOfStartingBalance As New DataGridViewTextBoxColumn
-        With DateOfStartingBalance
-            .HeaderText = "Starting Balance Date"
-            .Name = "DateOfStartingBalance"
-            .DefaultCellStyle.Format = "MM/dd/yyyy"
-            .Width = 150
-            dgvAccounts.Columns.Add(DateOfStartingBalance)
-            .DataPropertyName = "DateOfStartingBalance"
-        End With
+    '    Dim DateOfStartingBalance As New DataGridViewTextBoxColumn
+    '    With DateOfStartingBalance
+    '        .HeaderText = "Starting Balance Date"
+    '        .Name = "DateOfStartingBalance"
+    '        .DefaultCellStyle.Format = "MM/dd/yyyy"
+    '        .Width = 150
+    '        dgvAccounts.Columns.Add(DateOfStartingBalance)
+    '        .DataPropertyName = "DateOfStartingBalance"
+    '    End With
 
-        'Dim DeleteButton As New DataGridViewButtonColumn
-        'With DeleteButton
-        '    .HeaderText = "Delete Account"
-        '    .Name = "DeleteButton"
-        '    .Text = "Delete"
-        '    .Width = 150
-        '    dgvAccounts.Columns.Add(DeleteButton)
-        '    .Text = "Delete"
-        '    .Visible = False
-        'End With
+    '    'Dim DeleteButton As New DataGridViewButtonColumn
+    '    'With DeleteButton
+    '    '    .HeaderText = "Delete Account"
+    '    '    .Name = "DeleteButton"
+    '    '    .Text = "Delete"
+    '    '    .Width = 150
+    '    '    dgvAccounts.Columns.Add(DeleteButton)
+    '    '    .Text = "Delete"
+    '    '    .Visible = False
+    '    'End With
 
-        dgvAccounts.DataSource = dtAccounts
-        dgvAccounts.EditMode = DataGridViewEditMode.EditOnEnter
+    '    dgvAccounts.DataSource = dtAccounts
+    '    dgvAccounts.EditMode = DataGridViewEditMode.EditOnEnter
 
-    End Sub
+    'End Sub
 
-    Private Sub ConfigureAccountsPlannedDataGridView()
-        Dim AccountName As New DataGridViewTextBoxColumn
-        With AccountName
-            .HeaderText = "Account Name"
-            .Name = "AccountName"
-            .Width = 300
-            dgvAccountsPlanned.Columns.Add(AccountName)
-            .DataPropertyName = "AccountName"
-        End With
+    'Private Sub ConfigureAccountsPlannedDataGridView()
+    '    Dim AccountName As New DataGridViewTextBoxColumn
+    '    With AccountName
+    '        .HeaderText = "Account Name"
+    '        .Name = "AccountName"
+    '        .Width = 300
+    '        dgvAccountsPlanned.Columns.Add(AccountName)
+    '        .DataPropertyName = "AccountName"
+    '    End With
 
-        Dim CalculatedBalance As New DataGridViewTextBoxColumn
-        With CalculatedBalance
-            .HeaderText = "Balance"
-            .Name = "CalculatedBalance"
-            .ReadOnly = True
-            .Width = 150
-            dgvAccountsPlanned.Columns.Add(CalculatedBalance)
-            .DataPropertyName = "CalculatedBalance"
-        End With
+    '    Dim CalculatedBalance As New DataGridViewTextBoxColumn
+    '    With CalculatedBalance
+    '        .HeaderText = "Balance"
+    '        .Name = "CalculatedBalance"
+    '        .ReadOnly = True
+    '        .Width = 150
+    '        dgvAccountsPlanned.Columns.Add(CalculatedBalance)
+    '        .DataPropertyName = "CalculatedBalance"
+    '    End With
 
-        Dim cmbAccountType As New DataGridViewComboBoxColumn
-        With cmbAccountType
-            .HeaderText = "Account Type"
-            .Name = "cmbAccountType"
-            .Width = 150
-            dgvAccountsPlanned.Columns.Add(cmbAccountType)
-            .DataPropertyName = "Type"
-            For Each dr As DataRow In dtAccountTypes.Rows
-                .Items.Add(dr.Item("Type").ToString)
-            Next
-            .DataPropertyName = "AccountType"
-        End With
+    '    Dim cmbAccountType As New DataGridViewComboBoxColumn
+    '    With cmbAccountType
+    '        .HeaderText = "Account Type"
+    '        .Name = "cmbAccountType"
+    '        .Width = 150
+    '        dgvAccountsPlanned.Columns.Add(cmbAccountType)
+    '        .DataPropertyName = "Type"
+    '        For Each dr As DataRow In dtAccountTypes.Rows
+    '            .Items.Add(dr.Item("Type").ToString)
+    '        Next
+    '        .DataPropertyName = "AccountType"
+    '    End With
 
-        Dim StartingBalance As New DataGridViewTextBoxColumn
-        With StartingBalance
-            .HeaderText = "Starting Balance"
-            .Name = "StartingBalance"
-            .Width = 150
-            dgvAccountsPlanned.Columns.Add(StartingBalance)
-            .DataPropertyName = "StartingBalance"
-        End With
+    '    Dim StartingBalance As New DataGridViewTextBoxColumn
+    '    With StartingBalance
+    '        .HeaderText = "Starting Balance"
+    '        .Name = "StartingBalance"
+    '        .Width = 150
+    '        dgvAccountsPlanned.Columns.Add(StartingBalance)
+    '        .DataPropertyName = "StartingBalance"
+    '    End With
 
-        Dim DateOfStartingBalance As New DataGridViewTextBoxColumn
-        With DateOfStartingBalance
-            .HeaderText = "Starting Balance Date"
-            .Name = "DateOfStartingBalance"
-            .DefaultCellStyle.Format = "MM/dd/yyyy"
-            .Width = 150
-            dgvAccountsPlanned.Columns.Add(DateOfStartingBalance)
-            .DataPropertyName = "DateOfStartingBalance"
-        End With
+    '    Dim DateOfStartingBalance As New DataGridViewTextBoxColumn
+    '    With DateOfStartingBalance
+    '        .HeaderText = "Starting Balance Date"
+    '        .Name = "DateOfStartingBalance"
+    '        .DefaultCellStyle.Format = "MM/dd/yyyy"
+    '        .Width = 150
+    '        dgvAccountsPlanned.Columns.Add(DateOfStartingBalance)
+    '        .DataPropertyName = "DateOfStartingBalance"
+    '    End With
 
-        'Dim DeleteButton As New DataGridViewButtonColumn
-        'With DeleteButton
-        '    .HeaderText = "Delete Account"
-        '    .Name = "DeleteButton"
-        '    .Text = "Delete"
-        '    .Width = 150
-        '    dgvAccountsPlanned.Columns.Add(DeleteButton)
-        '    .Text = "Delete"
-        '    .Visible = False
-        'End With
+    '    'Dim DeleteButton As New DataGridViewButtonColumn
+    '    'With DeleteButton
+    '    '    .HeaderText = "Delete Account"
+    '    '    .Name = "DeleteButton"
+    '    '    .Text = "Delete"
+    '    '    .Width = 150
+    '    '    dgvAccountsPlanned.Columns.Add(DeleteButton)
+    '    '    .Text = "Delete"
+    '    '    .Visible = False
+    '    'End With
 
-        dgvAccountsPlanned.DataSource = dtAccounts
-    End Sub
+    '    dgvAccountsPlanned.DataSource = dtAccounts
+    'End Sub
 
-    Private Sub ConfigurePlannedTransactionsDataGridView()
+    'Private Sub ConfigurePlannedTransactionsDataGridView()
 
-        Dim TransactionDate As New DataGridViewTextBoxColumn
-        With TransactionDate
-            .HeaderText = "Date"
-            .Name = "Date"
-            .Width = 150
-            .DefaultCellStyle.Format = "MM/dd/yyyy"
-            dgvPlannedTransactions.Columns.Add(TransactionDate)
-            .DataPropertyName = "Date"
-        End With
+    '    Dim TransactionDate As New DataGridViewTextBoxColumn
+    '    With TransactionDate
+    '        .HeaderText = "Date"
+    '        .Name = "Date"
+    '        .Width = 150
+    '        .DefaultCellStyle.Format = "MM/dd/yyyy"
+    '        dgvPlannedTransactions.Columns.Add(TransactionDate)
+    '        .DataPropertyName = "Date"
+    '    End With
 
-        Dim TransactionType As New DataGridViewComboBoxColumn
-        With TransactionType
-            .HeaderText = "Transaction Type"
-            .Name = "TransactionType"
-            .Width = 150
-            dgvPlannedTransactions.Columns.Add(TransactionType)
-            .DataPropertyName = "TransactionType"
-            For Each dr As DataRow In dtTransactionTypes.Rows
-                .Items.Add(dr.Item("Type").ToString)
-            Next
-        End With
+    '    Dim TransactionType As New DataGridViewComboBoxColumn
+    '    With TransactionType
+    '        .HeaderText = "Transaction Type"
+    '        .Name = "TransactionType"
+    '        .Width = 150
+    '        dgvPlannedTransactions.Columns.Add(TransactionType)
+    '        .DataPropertyName = "TransactionType"
+    '        For Each dr As DataRow In dtTransactionTypes.Rows
+    '            .Items.Add(dr.Item("Type").ToString)
+    '        Next
+    '    End With
 
-        Dim TransactionAmount As New DataGridViewTextBoxColumn
-        With TransactionAmount
-            .HeaderText = "Amount"
-            .Name = "Amount"
-            .Width = 150
-            dgvPlannedTransactions.Columns.Add(TransactionAmount)
-            .DataPropertyName = "Amount"
-        End With
+    '    Dim TransactionAmount As New DataGridViewTextBoxColumn
+    '    With TransactionAmount
+    '        .HeaderText = "Amount"
+    '        .Name = "Amount"
+    '        .Width = 150
+    '        dgvPlannedTransactions.Columns.Add(TransactionAmount)
+    '        .DataPropertyName = "Amount"
+    '    End With
 
-        Dim FromAccountName As New DataGridViewComboBoxColumn
-        With FromAccountName
-            .HeaderText = "From Account"
-            .Name = "FromAccountName"
-            .Width = 300
-            dgvPlannedTransactions.Columns.Add(FromAccountName)
-            .DataPropertyName = "FromAccountName"
-            For Each dr As DataRow In dtFromAccounts.Rows
-                .Items.Add(dr.Item("AccountName").ToString)
-            Next
-        End With
+    '    Dim FromAccountName As New DataGridViewComboBoxColumn
+    '    With FromAccountName
+    '        .HeaderText = "From Account"
+    '        .Name = "FromAccountName"
+    '        .Width = 300
+    '        dgvPlannedTransactions.Columns.Add(FromAccountName)
+    '        .DataPropertyName = "FromAccountName"
+    '        For Each dr As DataRow In dtFromAccounts.Rows
+    '            .Items.Add(dr.Item("AccountName").ToString)
+    '        Next
+    '    End With
 
-        Dim ToAccountName As New DataGridViewComboBoxColumn
-        With ToAccountName
-            .HeaderText = "To Account"
-            .Name = "ToAccountName"
-            .Width = 300
-            dgvPlannedTransactions.Columns.Add(ToAccountName)
-            .DataPropertyName = "ToAccountName"
-            For Each dr As DataRow In dtToAccounts.Rows
-                .Items.Add(dr.Item("AccountName").ToString)
-            Next
-        End With
+    '    Dim ToAccountName As New DataGridViewComboBoxColumn
+    '    With ToAccountName
+    '        .HeaderText = "To Account"
+    '        .Name = "ToAccountName"
+    '        .Width = 300
+    '        dgvPlannedTransactions.Columns.Add(ToAccountName)
+    '        .DataPropertyName = "ToAccountName"
+    '        For Each dr As DataRow In dtToAccounts.Rows
+    '            .Items.Add(dr.Item("AccountName").ToString)
+    '        Next
+    '    End With
 
-        dgvPlannedTransactions.DataSource = dtPlannedTransactions
-    End Sub
+    '    dgvPlannedTransactions.DataSource = dtPlannedTransactions
+    'End Sub
 
-    Private Sub ConfigureActualTransactionsDataGridView()
-        Dim TransactionDate As New DataGridViewTextBoxColumn
-        With TransactionDate
-            .HeaderText = "Date"
-            .Name = "Date"
-            .Width = 150
-            .DefaultCellStyle.Format = "MM/dd/yyyy"
-            dgvActualTransactions.Columns.Add(TransactionDate)
-            .DataPropertyName = "Date"
-        End With
+    'Private Sub ConfigureActualTransactionsDataGridView()
+    '    Dim TransactionDate As New DataGridViewTextBoxColumn
+    '    With TransactionDate
+    '        .HeaderText = "Date"
+    '        .Name = "Date"
+    '        .Width = 150
+    '        .DefaultCellStyle.Format = "MM/dd/yyyy"
+    '        dgvActualTransactions.Columns.Add(TransactionDate)
+    '        .DataPropertyName = "Date"
+    '    End With
 
-        Dim TransactionType As New DataGridViewComboBoxColumn
-        With TransactionType
-            .HeaderText = "Transaction Type"
-            .Name = "TransactionType"
-            .Width = 150
-            dgvActualTransactions.Columns.Add(TransactionType)
-            .DataPropertyName = "TransactionType"
-            For Each dr As DataRow In dtTransactionTypes.Rows
-                .Items.Add(dr.Item("Type").ToString)
-            Next
-        End With
+    '    Dim TransactionType As New DataGridViewComboBoxColumn
+    '    With TransactionType
+    '        .HeaderText = "Transaction Type"
+    '        .Name = "TransactionType"
+    '        .Width = 150
+    '        dgvActualTransactions.Columns.Add(TransactionType)
+    '        .DataPropertyName = "TransactionType"
+    '        For Each dr As DataRow In dtTransactionTypes.Rows
+    '            .Items.Add(dr.Item("Type").ToString)
+    '        Next
+    '    End With
 
-        Dim TransactionAmount As New DataGridViewTextBoxColumn
-        With TransactionAmount
-            .HeaderText = "Amount"
-            .Name = "Amount"
-            .Width = 150
-            dgvActualTransactions.Columns.Add(TransactionAmount)
-            .DataPropertyName = "Amount"
-        End With
+    '    Dim TransactionAmount As New DataGridViewTextBoxColumn
+    '    With TransactionAmount
+    '        .HeaderText = "Amount"
+    '        .Name = "Amount"
+    '        .Width = 150
+    '        dgvActualTransactions.Columns.Add(TransactionAmount)
+    '        .DataPropertyName = "Amount"
+    '    End With
 
-        Dim FromAccountName As New DataGridViewComboBoxColumn
-        With FromAccountName
-            .HeaderText = "From Account"
-            .Name = "FromAccountName"
-            .Width = 300
-            dgvActualTransactions.Columns.Add(FromAccountName)
-            .DataPropertyName = "FromAccountName"
-            For Each dr As DataRow In dtFromAccounts.Rows
-                .Items.Add(dr.Item("AccountName").ToString)
-            Next
-        End With
+    '    Dim FromAccountName As New DataGridViewComboBoxColumn
+    '    With FromAccountName
+    '        .HeaderText = "From Account"
+    '        .Name = "FromAccountName"
+    '        .Width = 300
+    '        dgvActualTransactions.Columns.Add(FromAccountName)
+    '        .DataPropertyName = "FromAccountName"
+    '        For Each dr As DataRow In dtFromAccounts.Rows
+    '            .Items.Add(dr.Item("AccountName").ToString)
+    '        Next
+    '    End With
 
-        Dim ToAccountName As New DataGridViewComboBoxColumn
-        With ToAccountName
-            .HeaderText = "To Account"
-            .Name = "ToAccountName"
-            .Width = 300
-            dgvActualTransactions.Columns.Add(ToAccountName)
-            .DataPropertyName = "ToAccountName"
-            For Each dr As DataRow In dtToAccounts.Rows
-                .Items.Add(dr.Item("AccountName").ToString)
-            Next
-        End With
+    '    Dim ToAccountName As New DataGridViewComboBoxColumn
+    '    With ToAccountName
+    '        .HeaderText = "To Account"
+    '        .Name = "ToAccountName"
+    '        .Width = 300
+    '        dgvActualTransactions.Columns.Add(ToAccountName)
+    '        .DataPropertyName = "ToAccountName"
+    '        For Each dr As DataRow In dtToAccounts.Rows
+    '            .Items.Add(dr.Item("AccountName").ToString)
+    '        Next
+    '    End With
 
-        dgvActualTransactions.DataSource = dtActualTransactions
+    '    dgvActualTransactions.DataSource = dtActualTransactions
 
-    End Sub
+    'End Sub
 
     Private Sub GetAccounts()
         dtAccounts.Reset()
@@ -610,23 +617,23 @@ Public Class Form1
         CalculateCurrentAccountBalances()
     End Sub
 
-    Private Sub dgvPlannedTransactions_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPlannedTransactions.CellContentClick
+    Private Sub dgvPlannedTransactions_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
 
     End Sub
 
-    Private Sub dgvAccounts_DataError(sender As Object, e As DataGridViewDataErrorEventArgs) Handles dgvAccounts.DataError
+    Private Sub dgvAccounts_DataError(sender As Object, e As DataGridViewDataErrorEventArgs)
 
     End Sub
 
-    Private Sub dgvActualTransactions_DataError(sender As Object, e As DataGridViewDataErrorEventArgs) Handles dgvActualTransactions.DataError
+    Private Sub dgvActualTransactions_DataError(sender As Object, e As DataGridViewDataErrorEventArgs)
 
     End Sub
 
-    Private Sub dgvPlannedTransactions_DataError(sender As Object, e As DataGridViewDataErrorEventArgs) Handles dgvPlannedTransactions.DataError
+    Private Sub dgvPlannedTransactions_DataError(sender As Object, e As DataGridViewDataErrorEventArgs)
 
     End Sub
 
-    Private Sub dgvAccountsPlanned_DataError(sender As Object, e As DataGridViewDataErrorEventArgs) Handles dgvAccountsPlanned.DataError
+    Private Sub dgvAccountsPlanned_DataError(sender As Object, e As DataGridViewDataErrorEventArgs)
 
     End Sub
 
@@ -733,99 +740,130 @@ Public Class Form1
     '    End Select
     'End Sub
 
-    Public Function CalculateBalance(ByVal AccountName As String, ByVal StartDate As Date, ByVal EndDate As Date, ByVal StartingBalance As Decimal, ByRef Transactions As DataTable) As Decimal
-        'The "Transactions" datatable expects a table with columns guid(int), Date(date), Amount(decimal) FromAccountName(string), ToAccountName(string), TransactionType(string)
-        'dtActualTransactions and dtPlannedTransactions should match this structure when populated from the database
+    'Public Function CalculateBalance(ByVal AccountName As String, ByVal StartDate As Date, ByVal EndDate As Date, ByVal StartingBalance As Decimal, ByRef Transactions As DataTable) As Decimal
+    '    'The "Transactions" datatable expects a table with columns guid(int), Date(date), Amount(decimal) FromAccountName(string), ToAccountName(string), TransactionType(string)
+    '    'dtActualTransactions and dtPlannedTransactions should match this structure when populated from the database
 
-        Dim RunningBalance As Decimal
-        RunningBalance = StartingBalance
-        For Each dr As DataRow In Transactions.Rows
-            If CDate(dr.Item("Date")) >= StartDate Then
-                If CDate(dr.Item("Date")) <= EndDate Then
-                    If dr.Item("FromAccountName").ToString = AccountName Then
-                        RunningBalance = RunningBalance - CDec(dr.Item("Amount"))
-                    ElseIf dr.Item("ToAccountName").ToString = AccountName Then
-                        RunningBalance = RunningBalance + CDec(dr.Item("Amount"))
-                    End If
-                End If
+    '    Dim RunningBalance As Decimal
+    '    RunningBalance = StartingBalance
+    '    For Each dr As DataRow In Transactions.Rows
+    '        If CDate(dr.Item("Date")) >= StartDate Then
+    '            If CDate(dr.Item("Date")) <= EndDate Then
+    '                If dr.Item("FromAccountName").ToString = AccountName Then
+    '                    RunningBalance = RunningBalance - CDec(dr.Item("Amount"))
+    '                ElseIf dr.Item("ToAccountName").ToString = AccountName Then
+    '                    RunningBalance = RunningBalance + CDec(dr.Item("Amount"))
+    '                End If
+    '            End If
+    '        End If
+    '    Next dr
+    '    Return RunningBalance
+    'End Function
+
+    'Public Function CreateRecurringTransaction(ByRef Transactions As DataTable, ByVal CountOfRecurrences As Integer, ByVal FromAccountName As String, ByVal ToAccountName As String, ByVal Amount As Decimal, ByVal StartDate As Date, ByVal IntervalInDays As Integer, ByVal TransactionType As String) As DataTable
+    '    'Expects a datatable with columns identical to those in dtActualtransactions and dtPlannedTransactions
+    '    'New transactions are added to the datatable
+    '    Dim TransactionDate As Date = StartDate
+    '    Dim Count As Integer
+    '    For Count = 1 To CountOfRecurrences
+    '        Dim dr As DataRow = Transactions.NewRow
+    '        dr.Item("Date") = TransactionDate
+    '        dr.Item("Amount") = Amount
+    '        dr.Item("FromAccountName") = FromAccountName
+    '        dr.Item("ToAccountName") = ToAccountName
+    '        dr.Item("TransactionType") = TransactionType
+    '        TransactionDate = TransactionDate.AddDays(CDec(IntervalInDays))
+    '        Transactions.Rows.Add(dr)
+    '    Next Count
+    '    Return Transactions
+    'End Function
+
+    'Public Function DeleteATransaction(ByRef Transactions As DataTable, ByVal FromAccountName As String, ByVal ToAccountName As String, ByVal Amount As Decimal, ByVal TransactionDate As Date) As DataTable
+    '    'Expects Transactions to be a datatable with columns identical to those in dtActualtransactions and dtPlannedTransactions
+    '    For Each dr As DataRow In Transactions.Rows
+    '        If CDate(dr.Item("Date")) = TransactionDate Then
+    '            If CDec(dr.Item("Amount")) = Amount Then
+    '                If dr.Item("FromAccountName").ToString = FromAccountName Then
+    '                    If dr.Item("ToAccountName").ToString = ToAccountName Then
+    '                        Transactions.Rows.Remove(dr)
+    '                        Return Transactions
+    '                    End If
+    '                End If
+    '            End If
+    '        End If
+    '    Next dr
+    '    Return Transactions
+    'End Function
+
+    'Public Function CalculateDailyBalances(ByRef Transactions As DataTable, ByVal AccountName As String, ByVal StartingBalance As Decimal, ByVal StartDate As Date, ByVal EndDate As Date) As DataTable
+    '    'Expects Transactions to be a datatable with columns identical to those in dtActualtransactions and dtPlannedTransactions
+    '    'Returns a new table with columns Date(date), AccountName(string), Balance(decimal)
+    '    'The balances are END OF DAY balances, ie balance includes the results of all transactions that occurred on that date
+    '    Dim DateOfBalance As Date = StartDate
+    '    Dim Balances As New DataTable
+    '    Dim RunningBalance As Decimal = StartingBalance
+    '    Balances.Columns.Add("Date", GetType(Date))
+    '    Balances.Columns.Add("AccountName", GetType(Date))
+    '    Balances.Columns.Add("Balance", GetType(Date))
+    '    Dim Count As Integer
+    '    For Count = 1 To 1 + (EndDate - StartDate).Days
+    '        For Each drT As DataRow In Transactions.Rows
+    '            If CDate(drT.Item("Date")) = DateOfBalance Then
+    '                If drT.Item("FromAccountName").ToString = AccountName Then
+    '                    RunningBalance = RunningBalance - CDec(drT.Item("Amount"))
+    '                    Dim dr As DataRow = Balances.NewRow
+    '                    dr.Item("Date") = DateOfBalance
+    '                    dr.Item("AccountName") = AccountName
+    '                    dr.Item("Balance") = RunningBalance
+    '                    Balances.Rows.Add(dr)
+    '                ElseIf drT.Item("ToAccountName").ToString = AccountName Then
+    '                    RunningBalance = RunningBalance + CDec(drT.Item("Amount"))
+    '                    Dim dr As DataRow = Balances.NewRow
+    '                    dr.Item("Date") = DateOfBalance
+    '                    dr.Item("AccountName") = AccountName
+    '                    dr.Item("Balance") = RunningBalance
+    '                    Balances.Rows.Add(dr)
+    '                End If
+    '            End If
+    '        Next drT
+    '    Next Count
+    '    Return Balances
+    'End Function
+
+    Private Sub CtlAccount1_Load(sender As Object, e As EventArgs) Handles CtlAccount1.Load
+        CtlAccount1.Label8.ForeColor = Color.WhiteSmoke
+    End Sub
+
+    Private Sub btnAddAccount_Click(sender As Object, e As EventArgs) Handles btnAddAccount.Click
+
+    End Sub
+
+    Public Sub AddANewTransaction()
+        Dim SQLiteConnection As New clsSQLiteConnection
+        Dim TransactionControl As New ctlTransaction(SQLiteConnection.CreateGUID, GetAccountList)
+        flpTransactions.Controls.Add(TransactionControl)
+    End Sub
+
+    Public Sub AddANewAccount()
+
+    End Sub
+
+    Public Function GetAccountList() As List(Of String)
+        Dim lstAccounts As New List(Of String)
+        Dim dtAccounts As New DataTable
+        Dim SQLiteConnection As New clsSQLiteConnection
+        Try
+            SQLiteConnection.PopulateADataTable(dtAccounts, GetType(modGLobal.Account).Name)
+            If dtAccounts.Rows.Count > 0 Then
+                For Each dr As DataRow In dtAccounts.Rows
+                    lstAccounts.Add(dr.Item(modGLobal.Account.txtAccountName).ToString)
+                Next dr
             End If
-        Next dr
-        Return RunningBalance
+        Catch ex As Exception
+
+        End Try
+        Return lstAccounts
     End Function
-
-    Public Function CreateRecurringTransaction(ByRef Transactions As DataTable, ByVal CountOfRecurrences As Integer, ByVal FromAccountName As String, ByVal ToAccountName As String, ByVal Amount As Decimal, ByVal StartDate As Date, ByVal IntervalInDays As Integer, ByVal TransactionType As String) As DataTable
-        'Expects a datatable with columns identical to those in dtActualtransactions and dtPlannedTransactions
-        'New transactions are added to the datatable
-        Dim TransactionDate As Date = StartDate
-        Dim Count As Integer
-        For Count = 1 To CountOfRecurrences
-            Dim dr As DataRow = Transactions.NewRow
-            dr.Item("Date") = TransactionDate
-            dr.Item("Amount") = Amount
-            dr.Item("FromAccountName") = FromAccountName
-            dr.Item("ToAccountName") = ToAccountName
-            dr.Item("TransactionType") = TransactionType
-            TransactionDate = TransactionDate.AddDays(CDec(IntervalInDays))
-            Transactions.Rows.Add(dr)
-        Next Count
-        Return Transactions
-    End Function
-
-    Public Function DeleteATransaction(ByRef Transactions As DataTable, ByVal FromAccountName As String, ByVal ToAccountName As String, ByVal Amount As Decimal, ByVal TransactionDate As Date) As DataTable
-        'Expects Transactions to be a datatable with columns identical to those in dtActualtransactions and dtPlannedTransactions
-        For Each dr As DataRow In Transactions.Rows
-            If CDate(dr.Item("Date")) = TransactionDate Then
-                If CDec(dr.Item("Amount")) = Amount Then
-                    If dr.Item("FromAccountName").ToString = FromAccountName Then
-                        If dr.Item("ToAccountName").ToString = ToAccountName Then
-                            Transactions.Rows.Remove(dr)
-                            Return Transactions
-                        End If
-                    End If
-                End If
-            End If
-        Next dr
-        Return Transactions
-    End Function
-
-    Public Function CalculateDailyBalances(ByRef Transactions As DataTable, ByVal AccountName As String, ByVal StartingBalance As Decimal, ByVal StartDate As Date, ByVal EndDate As Date) As DataTable
-        'Expects Transactions to be a datatable with columns identical to those in dtActualtransactions and dtPlannedTransactions
-        'Returns a new table with columns Date(date), AccountName(string), Balance(decimal)
-        'The balances are END OF DAY balances, ie balance includes the results of all transactions that occurred on that date
-        Dim DateOfBalance As Date = StartDate
-        Dim Balances As New DataTable
-        Dim RunningBalance As Decimal = StartingBalance
-        Balances.Columns.Add("Date", GetType(Date))
-        Balances.Columns.Add("AccountName", GetType(Date))
-        Balances.Columns.Add("Balance", GetType(Date))
-        Dim Count As Integer
-        For Count = 1 To 1 + (EndDate - StartDate).Days
-            For Each drT As DataRow In Transactions.Rows
-                If CDate(drT.Item("Date")) = DateOfBalance Then
-                    If drT.Item("FromAccountName").ToString = AccountName Then
-                        RunningBalance = RunningBalance - CDec(drT.Item("Amount"))
-                        Dim dr As DataRow = Balances.NewRow
-                        dr.Item("Date") = DateOfBalance
-                        dr.Item("AccountName") = AccountName
-                        dr.Item("Balance") = RunningBalance
-                        Balances.Rows.Add(dr)
-                    ElseIf drT.Item("ToAccountName").ToString = AccountName Then
-                        RunningBalance = RunningBalance + CDec(drT.Item("Amount"))
-                        Dim dr As DataRow = Balances.NewRow
-                        dr.Item("Date") = DateOfBalance
-                        dr.Item("AccountName") = AccountName
-                        dr.Item("Balance") = RunningBalance
-                        Balances.Rows.Add(dr)
-                    End If
-                End If
-            Next drT
-        Next Count
-        Return Balances
-    End Function
-
-
-
-
 
 #End Region
 End Class

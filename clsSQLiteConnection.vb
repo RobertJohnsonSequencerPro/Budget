@@ -76,7 +76,7 @@ Public Class clsSQLiteConnection
         Try
             Using SQLiteConn As New SQLiteConnection(ConnectionString)
                 Dim dt As New DataTable
-                MessageBox.Show("SELECT * FROM '" & TableName & "'")
+                'MessageBox.Show("SELECT * FROM '" & TableName & "'")
                 SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "'", SQLiteConn)
                 SQLiteConn.Open()
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
@@ -85,7 +85,7 @@ Public Class clsSQLiteConnection
                     'The column already exists so do not add it.
                     Return True
                 End If
-                MessageBox.Show("ALTER TABLE " & TableName & " ADD COLUMN '" & ColumnName & "' " & DataType)
+                'MessageBox.Show("ALTER TABLE " & TableName & " ADD COLUMN '" & ColumnName & "' " & DataType)
                 Dim AddColumnQuery As String = "ALTER TABLE '" & TableName & "' ADD COLUMN '" & ColumnName & "' " & DataType
                 Dim cmd2 As New SQLiteCommand(AddColumnQuery, SQLiteConn)
                 cmd2.ExecuteNonQuery()
@@ -265,7 +265,7 @@ Public Class clsSQLiteConnection
             End If
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName, SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "'", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(TargetDataTable)
                 SQLIteConn.Close()
@@ -286,14 +286,14 @@ Public Class clsSQLiteConnection
             dtTargetDataTable.Clear()
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & " WHERE " & SearchColumnName & " = '" & StringToSearchFor & "'", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE " & SearchColumnName & " = '" & StringToSearchFor & "'", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dtTargetDataTable)
                 SQLIteConn.Close()
                 Return True
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error in clsSQLiteServer.PopulateADataTableFiltered. TableName = " & TableName & " " & ex.Message)
+            MessageBox.Show("Error in clsSQLiteServer.PopulateADataTableFiltered. TableName = '" & TableName & "' " & ex.Message)
             Return False
         End Try
     End Function
@@ -308,7 +308,7 @@ Public Class clsSQLiteConnection
             dtTargetDataTable.Clear()
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & " WHERE " & FirstSearchColumnName & " = '" & FirstStringToSearchFor & "' AND " & SecondSearchColumnName & "='" & SecondStringToSearchFor & "'", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE " & FirstSearchColumnName & " = '" & FirstStringToSearchFor & "' AND " & SecondSearchColumnName & "='" & SecondStringToSearchFor & "'", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dtTargetDataTable)
                 SQLIteConn.Close()
@@ -330,7 +330,7 @@ Public Class clsSQLiteConnection
             dtTargetDataTable.Clear()
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & " WHERE " & BooleanColumnName & " = " & BooleanValue, SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE " & BooleanColumnName & " = " & BooleanValue, SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dtTargetDataTable)
                 SQLIteConn.Close()
@@ -357,7 +357,7 @@ Public Class clsSQLiteConnection
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
                 'MessageBox.Show("SELECT * FROM " & TableName & " WHERE " & BooleanColumnName & " = " & BooleanValue & " ORDER BY " & OrderByColumn & " " & OrderDirection & " LIMIT " & NumberOfRows & " OFFSET " & StartFromRow & ";")
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & " WHERE " & BooleanColumnName & " = " & BooleanValue & " ORDER BY " & OrderByColumn & " " & OrderDirection & " LIMIT " & NumberOfRows & " OFFSET " & StartFromRow & ";", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE " & BooleanColumnName & " = " & BooleanValue & " ORDER BY " & OrderByColumn & " " & OrderDirection & " LIMIT " & NumberOfRows & " OFFSET " & StartFromRow & ";", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dtTargetDataTable)
                 SQLIteConn.Close()
@@ -375,7 +375,7 @@ Public Class clsSQLiteConnection
         Try
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & " WHERE " & MatchField & "='" & MatchValue & "';", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE " & MatchField & "='" & MatchValue & "';", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dt)
                 SQLIteConn.Close()
@@ -425,7 +425,7 @@ Public Class clsSQLiteConnection
             End If
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & " WHERE " & SearchColumnName & " = '" & StringToSearchFor & "' ORDER BY " & OrderByColumn & " " & OrderDirection & " LIMIT " & NumberOfRows & " OFFSET " & StartFromRow & ";", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE " & SearchColumnName & " = '" & StringToSearchFor & "' ORDER BY " & OrderByColumn & " " & OrderDirection & " LIMIT " & NumberOfRows & " OFFSET " & StartFromRow & ";", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dtTargetDataTable)
                 SQLIteConn.Close()
@@ -446,7 +446,7 @@ Public Class clsSQLiteConnection
             End If
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & "' WHERE NOT (" & DateField & " > '" & EndDate & "' OR " & DateField & " < '" & StartDate & "')", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE NOT (" & DateField & " > '" & EndDate & "' OR " & DateField & " < '" & StartDate & "')", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dtTargetDataTable)
                 SQLIteConn.Close()
@@ -464,7 +464,7 @@ Public Class clsSQLiteConnection
         Try
             Using SQLiteConn As New SQLiteConnection(ConnectionString)
                 SQLiteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableNameInDataBase, SQLiteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableNameInDataBase & "'", SQLiteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.DeleteCommand = DatabaseAdapterCommandBuilder.GetDeleteCommand
                 SQLiteDatabaseAdapter.UpdateCommand = DatabaseAdapterCommandBuilder.GetUpdateCommand
@@ -527,7 +527,7 @@ Public Class clsSQLiteConnection
         Try
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & " WHERE " & MatchField & "='" & MatchValue & "';", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE " & MatchField & "='" & MatchValue & "';", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dtTemporary)
                 SQLIteConn.Close()
@@ -551,7 +551,7 @@ Public Class clsSQLiteConnection
         Try
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & " WHERE " & Field & " LIKE '%" & ContainedString & "%' LIMIT " & MaxRows & ";", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE " & Field & " LIKE '%" & ContainedString & "%' LIMIT " & MaxRows & ";", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dt)
                 SQLIteConn.Close()
@@ -568,7 +568,7 @@ Public Class clsSQLiteConnection
         Try
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & " WHERE " & Field & " LIKE '%" & ContainedString & "%' ORDER BY " & OrderByColumn & " ASC LIMIT " & 16 & ";", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' WHERE " & Field & " LIKE '%" & ContainedString & "%' ORDER BY " & OrderByColumn & " ASC LIMIT " & 16 & ";", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dt)
                 SQLIteConn.Close()
@@ -585,7 +585,7 @@ Public Class clsSQLiteConnection
         Try
             Using SQLIteConn As New SQLiteConnection(ConnectionString)
                 SQLIteConn.Open()
-                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM " & TableName & " LIMIT 0;", SQLIteConn)
+                SQLiteDatabaseAdapter = New SQLiteDataAdapter("SELECT * FROM '" & TableName & "' LIMIT 0;", SQLIteConn)
                 Dim DatabaseAdapterCommandBuilder As SQLiteCommandBuilder = New SQLiteCommandBuilder(SQLiteDatabaseAdapter)
                 SQLiteDatabaseAdapter.Fill(dt)
                 SQLIteConn.Close()
@@ -601,7 +601,7 @@ Public Class clsSQLiteConnection
 
         Try
             Using SQLiteConn As New SQLiteConnection(ConnectionString)
-                Dim CreateIndex As String = "CREATE INDEX idx_" & TableName & "_" & ColumnName & " ON " & TableName & "(" & ColumnName & ");"
+                Dim CreateIndex As String = "CREATE INDEX idx_" & TableName & "_" & ColumnName & " ON '" & TableName & "' (" & ColumnName & ");"
                 Dim cmd As New SQLiteCommand(CreateIndex, SQLiteConn)
                 SQLiteConn.Open()
                 cmd.ExecuteNonQuery()
