@@ -44,6 +44,9 @@ Public Class Form1
 
         ' Add any initialization after the InitializeComponent() call.
 
+        flpAccounts.Controls.Clear()
+        flpTransactions.Controls.Clear()
+
         With dtAccountTypes
             .Columns.Add("Type")
             Dim drType1 As DataRow = .NewRow
@@ -83,7 +86,7 @@ Public Class Form1
             Dim drType11 As DataRow = .NewRow
             drType11.Item("Type") = TransactionTypes.Spend_Cash
             .Rows.Add(drType11)
-            Dim drType12 As DataRow = dtTransactionTypes.NewRow
+            Dim drType12 As DataRow = .NewRow
             drType12.Item("Type") = TransactionTypes.Spend_on_Credit
             .Rows.Add(drType12)
             Dim drType13 As DataRow = .NewRow
@@ -122,6 +125,12 @@ Public Class Form1
         'Dim TransactionControl As New ctlTransaction(SQLiteServer.CreateGUID(), Accounts)
         'TabPage4.Controls.Add(TransactionControl)
 
+        dtAccounts = LoadAccountsFromDBIntoDataTable()
+        dtTransactions = LoadTransactionsFromDBIntoDataTable()
+        PopulateAccountsFrameFromDataTable(dtAccounts)
+        PopulateTransactionsFrameFromDataTable(dtTransactions, Now.AddMonths(-22), Now)
+
+
     End Sub
 #End Region
 
@@ -141,7 +150,7 @@ Public Class Form1
     ''' 
     ''' </summary>
     ''' <returns></returns>
-    Private Function LoadTransactionsFromDBIntoDatTable() As DataTable
+    Private Function LoadTransactionsFromDBIntoDataTable() As DataTable
         Dim dtTransactionsFromDB As New DataTable
         Dim SQLiteConnection As New clsSQLiteConnection
         SQLiteConnection.PopulateADataTable(dtTransactionsFromDB, "Transactions")
@@ -183,13 +192,13 @@ Public Class Form1
     Private Sub UpdateAccountsDataTableFromForm(ByRef dtAccountsData As DataTable)
         For Each AccountControl As ctlAccount In flpAccounts.Controls
             For Each AccountRecord As DataRow In dtAccountsData.Rows
-                If AccountControl.GUID = (AccountRecord.Item(modGLobal.Accounts.txtGUID.ToString)).ToString Then
+                If AccountControl.strGUID = (AccountRecord.Item(modGLobal.Accounts.txtGUID.ToString)).ToString Then
                     With AccountRecord
                         .Item(modGLobal.Accounts.txtAccountName.ToString) = AccountControl.txtAccountName.Text
-                        .Item(modGLobal.Accounts.txtAccountType.ToString) = AccountControl.txtAccountName.Text
-                        .Item(modGLobal.Accounts.txtSubAccountToAccountName.ToString) = AccountControl.txtAccountName.Text
-                        .Item(modGLobal.Accounts.datDateOfStartingBalance.ToString) = AccountControl.txtAccountName.Text
-                        .Item(modGLobal.Accounts.decStartingBalance.ToString) = AccountControl.txtAccountName.Text
+                        .Item(modGLobal.Accounts.txtAccountType.ToString) = AccountControl.cmbAccountType.Text
+                        .Item(modGLobal.Accounts.txtSubAccountToAccountName.ToString) = AccountControl.cmbParentAccount.Text
+                        .Item(modGLobal.Accounts.datDateOfStartingBalance.ToString) = AccountControl.dtpStartingBalanceDate.Value
+                        .Item(modGLobal.Accounts.decStartingBalance.ToString) = CDec(AccountControl.txtStartingBalance.Text)
                     End With
                     Exit For
                 End If
@@ -272,6 +281,7 @@ Public Class Form1
                 End If
             End With
             Dim AccountControl As New ctlAccount()
+            flpAccounts.Controls.Add(AccountControl)
         Next AccountRecord
     End Sub
     ''' <summary>
@@ -292,24 +302,7 @@ Public Class Form1
             End With
         Next TransactionRecord
     End Sub
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <param name="ShowIncomeAccounts"></param>
-    ''' <param name="ShowCashAccounts"></param>
-    ''' <param name="ShowSavingsAccounts"></param>
-    ''' <param name="ShowDebtAccounts"></param>
-    ''' <param name="ShowExpenseAccounts"></param>
-    Private Sub PopulateAccountsFrameFromDataTable(Optional ShowIncomeAccounts As Boolean = True, Optional ShowCashAccounts As Boolean = True, Optional ShowSavingsAccounts As Boolean = True, Optional ShowDebtAccounts As Boolean = True, Optional ShowExpenseAccounts As Boolean = True)
 
-
-    End Sub
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    Private Sub PopulateTransactionsFrameFromDataTable()
-
-    End Sub
     ''' <summary>
     ''' 
     ''' </summary>
@@ -1057,6 +1050,8 @@ Public Class Form1
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub btnAddAccount_Click(sender As Object, e As EventArgs) Handles btnAddAccount.Click
+        Dim AccountControl As New ctlAccount
+        flpAccounts.Controls.Add(AccountControl)
 
     End Sub
     ''' <summary>

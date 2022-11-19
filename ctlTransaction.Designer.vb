@@ -45,7 +45,7 @@ Partial Class ctlTransaction
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001!))
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114.0!))
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134.0!))
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135.0!))
         Me.tlpMain.Controls.Add(Me.Label4, 3, 0)
         Me.tlpMain.Controls.Add(Me.Label3, 2, 0)
         Me.tlpMain.Controls.Add(Me.Label2, 1, 0)
@@ -66,7 +66,7 @@ Partial Class ctlTransaction
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpMain.Size = New System.Drawing.Size(1062, 92)
+        Me.tlpMain.Size = New System.Drawing.Size(1063, 92)
         Me.tlpMain.TabIndex = 0
         '
         'Label4
@@ -76,7 +76,7 @@ Partial Class ctlTransaction
         Me.Label4.Location = New System.Drawing.Point(930, 8)
         Me.Label4.Margin = New System.Windows.Forms.Padding(3, 8, 3, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(129, 17)
+        Me.Label4.Size = New System.Drawing.Size(130, 17)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Date:"
         '
@@ -134,7 +134,7 @@ Partial Class ctlTransaction
         Me.rdbCompleted.Location = New System.Drawing.Point(930, 64)
         Me.rdbCompleted.Margin = New System.Windows.Forms.Padding(3, 8, 3, 4)
         Me.rdbCompleted.Name = "rdbCompleted"
-        Me.rdbCompleted.Size = New System.Drawing.Size(129, 24)
+        Me.rdbCompleted.Size = New System.Drawing.Size(130, 24)
         Me.rdbCompleted.TabIndex = 5
         Me.rdbCompleted.Text = "Completed"
         Me.rdbCompleted.UseVisualStyleBackColor = True
@@ -172,7 +172,7 @@ Partial Class ctlTransaction
         Me.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpDate.Location = New System.Drawing.Point(930, 28)
         Me.dtpDate.Name = "dtpDate"
-        Me.dtpDate.Size = New System.Drawing.Size(129, 25)
+        Me.dtpDate.Size = New System.Drawing.Size(130, 25)
         Me.dtpDate.TabIndex = 9
         '
         'cmbTransactionType
@@ -210,7 +210,7 @@ Partial Class ctlTransaction
         Me.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "ctlTransaction"
-        Me.Size = New System.Drawing.Size(1062, 92)
+        Me.Size = New System.Drawing.Size(1063, 92)
         Me.tlpMain.ResumeLayout(False)
         Me.tlpMain.PerformLayout()
         Me.ResumeLayout(False)

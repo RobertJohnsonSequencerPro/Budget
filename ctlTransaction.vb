@@ -75,14 +75,29 @@ Public Class ctlTransaction
 
     End Sub
 
-    Public Sub New(GloballyUniqueID As String, IsDeleted As Boolean, TransactionDate As Date, Amount As Decimal, FromAccountName As String, ToAccountName As String, TransactionType As String, IsCompleted As Boolean)
+    Public Sub New(dtAccounts As DataTable, dtTransactionTypes As DataTable, GloballyUniqueID As String, IsDeleted As Boolean, TransactionDate As Date, Amount As Decimal, FromAccountName As String, ToAccountName As String, TransactionType As String, IsCompleted As Boolean)
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
 
+        For Each drAccount As DataRow In dtAccounts.Rows
+            cmbFromAccount.Items.Add(drAccount.Item(modGLobal.Accounts.txtAccountName.ToString))
+            cmbToAccount.Items.Add(drAccount.Item(modGLobal.Accounts.txtAccountName.ToString))
+        Next drAccount
+
+        For Each drTransactionType As DataRow In dtTransactionTypes.Rows
+            cmbTransactionType.Items.Add(drTransactionType.Item("Type").ToString)
+        Next drTransactionType
+
         txtGUID = GloballyUniqueID
         booIsDeleted = IsDeleted
+        dtpDate.Value = TransactionDate
+        txtAmount.Text = Amount.ToString
+        cmbToAccount.Text = ToAccountName
+        cmbFromAccount.Text = FromAccountName
+        cmbTransactionType.Text = TransactionType
+        rdbCompleted.Checked = IsCompleted
 
     End Sub
 #End Region
@@ -105,9 +120,8 @@ Public Class ctlTransaction
         Return lstAccounts
     End Function
 
-    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
 
-    End Sub
+
 
 
 #End Region
