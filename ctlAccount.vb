@@ -8,11 +8,11 @@ Public Class ctlAccount
 #End Region
 
 #Region "Properties"
-
+    Public GUID As String
 #End Region
 
 #Region "Objects"
-
+    Dim IOTable As clsSingleRecordIO
 #End Region
 
 #Region "Constructors"

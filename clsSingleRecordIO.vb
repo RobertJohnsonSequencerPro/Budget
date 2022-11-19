@@ -96,15 +96,30 @@ Public Class clsSingleRecordIO
     End Function
 
     Public Function GetTextFieldValue(ColumnName As String) As String
-        Return dtIOTable.Rows(0).Item(ColumnName).ToString
+        If Not dtIOTable Is Nothing Then
+            If dtIOTable.Rows.Count > 0 Then
+                Return dtIOTable.Rows(0).Item(ColumnName).ToString
+            End If
+        End If
+        Return ""
     End Function
 
     Public Function GetIntegerFieldValue(ColumnName As String) As Integer
-        Return CInt(dtIOTable.Rows(0).Item(ColumnName))
+        If Not dtIOTable Is Nothing Then
+            If dtIOTable.Rows.Count > 0 Then
+                Return CInt(dtIOTable.Rows(0).Item(ColumnName))
+            End If
+        End If
+        Return 0
     End Function
 
     Public Function GetNumericFieldValue(ColumnName As String) As Double
-        Return CDbl(dtIOTable.Rows(0).Item(ColumnName))
+        If Not dtIOTable Is Nothing Then
+            If dtIOTable.Rows.Count > 0 Then
+                Return CDbl(dtIOTable.Rows(0).Item(ColumnName))
+            End If
+        End If
+        Return 0
     End Function
 
 #Region "Constructors"

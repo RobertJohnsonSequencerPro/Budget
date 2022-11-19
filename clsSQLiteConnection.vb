@@ -192,11 +192,11 @@ Public Class clsSQLiteConnection
         SaveADataTable(dtActualTransactions, "ActualTransactions")
     End Sub
 
-    Public Function CreateCustomGUID(Seed As String) As String
-        Seed = Seed & Guid.NewGuid.ToString & DateTime.Now.Ticks.ToString
-        Seed = Seed & DateTime.Now.Ticks.ToString
-        Return Seed
-    End Function
+    'Public Function CreateCustomGUID(Seed As String) As String
+    '    Seed = Seed & Guid.NewGuid.ToString & DateTime.Now.Ticks.ToString
+    '    Seed = Seed & DateTime.Now.Ticks.ToString
+    '    Return Seed
+    'End Function
 
     Public Function CreateGraphPoints(AccountName As String, EndDate As Date) As Boolean
         Dim dtGraphPoints As New DataTable
