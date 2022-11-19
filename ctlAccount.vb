@@ -24,6 +24,17 @@ Public Class ctlAccount
         ' Add any initialization after the InitializeComponent() call.
         Label8.ForeColor = Color.WhiteSmoke
     End Sub
+
+    Public Sub New(GloballyUniqueID As String, IsDeleted As Boolean, AccountName As String, AccountType As String, StartingBalance As Decimal, StartingBalanceDate As Date, Optional ParentAccountName As String = "None")
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
+
+
 #End Region
 
 #Region "Methods"

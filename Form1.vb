@@ -2,18 +2,18 @@
 Option Explicit On
 
 Imports System.ComponentModel
+Imports Budget.modGLobal
 
 Public Class Form1
 
-#Region "Declarations"
 #Region "Variables"
     'See also the module StructsEnumsVariables
 
 #End Region
 #Region "DataTables"
     Dim dtAccounts As New DataTable
-    Dim dtActualTransactions As New DataTable
-    Dim dtPlannedTransactions As New DataTable
+    Dim dtTransactions As New DataTable
+
     Dim dtAccountTypes As New DataTable
     Dim dtTransactionTypes As New DataTable
     Dim dtFromAccounts As New DataTable
@@ -29,8 +29,6 @@ Public Class Form1
 
 #Region "Structures"
     'See also the module StructsEnumsVariables
-
-#End Region
 
 #End Region
 
@@ -129,7 +127,192 @@ Public Class Form1
 
 
 #Region "Methods"
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function LoadAccountsFromDBIntoDataTable() As DataTable
+        Dim dtAccountsFromDB As New DataTable
+        Dim SQLiteConnection As New clsSQLiteConnection
+        SQLiteConnection.PopulateADataTable(dtAccountsFromDB, "Accounts")
+        Return dtAccountsFromDB
+    End Function
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function LoadTransactionsFromDBIntoDatTable() As DataTable
+        Dim dtTransactionsFromDB As New DataTable
+        Dim SQLiteConnection As New clsSQLiteConnection
+        SQLiteConnection.PopulateADataTable(dtTransactionsFromDB, "Transactions")
+        Return dtTransactionsFromDB
+    End Function
+    ''' <summary>
+    ''' Uses the parameters given to add a new transaction to dtAccountssData
+    ''' </summary>
+    ''' <param name="dtAccountsData"></param>
+    Private Sub AddAnAccountToDataTable(ByRef dtAccountsData As DataTable, AccountName As String, AccountType As String, StartingBalance As Decimal, StartingBalanceDate As Date, Optional ParentAccountName As String = "None")
+        Dim NewRecord As DataRow = dtAccountsData.NewRow
+        With NewRecord
+            .Item(modGLobal.Accounts.txtAccountName.ToString) = AccountName
+            .Item(modGLobal.Accounts.txtAccountType.ToString) = AccountType
+            .Item(modGLobal.Accounts.decStartingBalance.ToString) = StartingBalance
+            .Item(modGLobal.Accounts.datDateOfStartingBalance.ToString) = StartingBalanceDate
+            .Item(modGLobal.Accounts.txtSubAccountToAccountName.ToString) = ParentAccountName
+        End With
+    End Sub
+    ''' <summary>
+    ''' Uses the parameters given to add a new transaction to dtTransactionsData
+    ''' </summary>
+    ''' <param name="dtTransactionsData"></param>
+    Private Sub AddATransactionToDataTable(ByRef dtTransactionsData As DataTable, FromAccountName As String, ToAccountName As String, Amount As Decimal, TransactionDate As Date, TransactionType As modGLobal.TransactionTypes, TransactionIsCompleted As Boolean)
+        Dim NewRecord As DataRow = dtTransactionsData.NewRow
+        With NewRecord
+            .Item(modGLobal.Transactions.txtFromAccount.ToString) = FromAccountName
+            .Item(modGLobal.Transactions.txtFromAccount.ToString) = ToAccountName
+            .Item(modGLobal.Transactions.txtFromAccount.ToString) = Amount
+            .Item(modGLobal.Transactions.txtFromAccount.ToString) = TransactionDate
+            .Item(modGLobal.Transactions.txtFromAccount.ToString) = TransactionType
+            .Item(modGLobal.Transactions.txtFromAccount.ToString) = TransactionIsCompleted
+        End With
+    End Sub
+    ''' <summary>
+    ''' Updates existing records in the datatable. Does not add new records.
+    ''' </summary>
+    ''' <param name="dtAccountsData"></param>
+    Private Sub UpdateAccountsDataTableFromForm(ByRef dtAccountsData As DataTable)
+        For Each AccountControl As ctlAccount In flpAccounts.Controls
+            For Each AccountRecord As DataRow In dtAccountsData.Rows
+                If AccountControl.GUID = (AccountRecord.Item(modGLobal.Accounts.txtGUID.ToString)).ToString Then
+                    With AccountRecord
+                        .Item(modGLobal.Accounts.txtAccountName.ToString) = AccountControl.txtAccountName.Text
+                        .Item(modGLobal.Accounts.txtAccountType.ToString) = AccountControl.txtAccountName.Text
+                        .Item(modGLobal.Accounts.txtSubAccountToAccountName.ToString) = AccountControl.txtAccountName.Text
+                        .Item(modGLobal.Accounts.datDateOfStartingBalance.ToString) = AccountControl.txtAccountName.Text
+                        .Item(modGLobal.Accounts.decStartingBalance.ToString) = AccountControl.txtAccountName.Text
+                    End With
+                    Exit For
+                End If
+            Next
+        Next
+    End Sub
+    ''' <summary>
+    ''' Updates existing records in the datatable. Does not add new records.
+    ''' </summary>
+    ''' ''' <param name="dtTransactionsData"></param>
+    Private Sub UpdateTransactionsDataTableFromForm(ByRef dtTransactionsData As DataTable)
+        For Each TransactionControl As ctlTransaction In flpTransactions.Controls
+            For Each TransactionRecord As DataRow In dtTransactionsData.Rows
+                If TransactionControl.txtGUID = (TransactionRecord.Item(modGLobal.Transactions.txtGUID.ToString)).ToString Then
+                    With TransactionRecord
+                        .Item(modGLobal.Transactions.txtTransactionType) = TransactionControl.cmbTransactionType.Text
+                        .Item(modGLobal.Transactions.datTransactionDate) = TransactionControl.dtpDate.Value
+                        .Item(modGLobal.Transactions.txtToAccount) = TransactionControl.cmbToAccount.Text
+                        .Item(modGLobal.Transactions.txtFromAccount) = TransactionControl.cmbFromAccount.Text
+                        .Item(modGLobal.Transactions.booIsCompleted) = TransactionControl.rdbCompleted.Checked
+                        .Item(modGLobal.Transactions.decAmount) = CDec(TransactionControl.txtAmount.Text)
+                    End With
+                    Exit For
+                End If
+            Next
+        Next
+    End Sub
+    ''' <summary>
+    ''' Updates the database with the data in the dtAccountsData datatable.
+    ''' </summary>
+    ''' <param name="dtAccountsData"></param>
+    Private Sub SaveAccountsDataTableToDB(dtAccountsData As DataTable)
+        Dim SQLiteConnection As New clsSQLiteConnection
+        SQLiteConnection.SaveADataTable(dtAccountsData, "Accounts")
+    End Sub
+    ''' <summary>
+    ''' Updates the database with the data in the dtTransactionssData datatable.
+    ''' </summary>
+    ''' <param name="dtTransactionsData"></param>
+    Private Sub SaveTransactionsDataTableToDB(dtTransactionsData As DataTable)
+        Dim SQLiteConnection As New clsSQLiteConnection
+        SQLiteConnection.SaveADataTable(dtTransactionsData, "Transactions")
+    End Sub
+    ''' <summary>
+    ''' Creates account controls and adds them to flpAccounts flow layout panel.
+    ''' </summary>
+    ''' <param name="dtAccountsData"></param>
+    ''' <param name="ShowIncomeAccounts"></param>
+    ''' <param name="ShowCashAccounts"></param>
+    ''' <param name="ShowSavingsAccounts"></param>
+    ''' <param name="ShowDebtAccounts"></param>
+    ''' <param name="ShowExpenseAccounts"></param>
+    Private Sub PopulateAccountsFrameFromDataTable(dtAccountsData As DataTable, Optional ShowIncomeAccounts As Boolean = True, Optional ShowCashAccounts As Boolean = True, Optional ShowSavingsAccounts As Boolean = True, Optional ShowDebtAccounts As Boolean = True, Optional ShowExpenseAccounts As Boolean = True)
+        For Each AccountRecord As DataRow In dtAccountsData.Rows
+            With AccountRecord
+                If Not ShowIncomeAccounts Then
+                    If .Item(modGLobal.Accounts.txtAccountType.ToString).ToString = modGLobal.AccountTypes.Income.ToString Then
+                        Continue For
+                    End If
+                End If
+                If Not ShowCashAccounts Then
+                    If .Item(modGLobal.Accounts.txtAccountType.ToString).ToString = modGLobal.AccountTypes.Cash.ToString Then
+                        Continue For
+                    End If
+                End If
+                If Not ShowSavingsAccounts Then
+                    If .Item(modGLobal.Accounts.txtAccountType.ToString).ToString = modGLobal.AccountTypes.Savings.ToString Then
+                        Continue For
+                    End If
+                End If
+                If Not ShowDebtAccounts Then
+                    If .Item(modGLobal.Accounts.txtAccountType.ToString).ToString = modGLobal.AccountTypes.Debt.ToString Then
+                        Continue For
+                    End If
+                End If
+                If Not ShowExpenseAccounts Then
+                    If .Item(modGLobal.Accounts.txtAccountType.ToString).ToString = modGLobal.AccountTypes.Expense.ToString Then
+                        Continue For
+                    End If
+                End If
+            End With
+            Dim AccountControl As New ctlAccount()
+        Next AccountRecord
+    End Sub
+    ''' <summary>
+    ''' Creates transaction controls and adds them to flpTransactions flow layout panel. Filters by start and end dates.
+    ''' </summary>
+    ''' <param name="dtTransactionssData"></param>
+    ''' <param name="datStartDate"></param>
+    ''' <param name="datEndDate"></param>
+    Private Sub PopulateTransactionsFrameFromDataTable(dtTransactionsData As DataTable, StartDate As Date, EndDate As Date)
+        For Each TransactionRecord As DataRow In dtTransactionsData.Rows
+            With TransactionRecord
+                If CDate(TransactionRecord.Item(modGLobal.Transactions.datTransactionDate.ToString)) >= StartDate Then
+                    If CDate(TransactionRecord.Item(modGLobal.Transactions.datTransactionDate.ToString)) <= EndDate Then
+                        Dim TransactionControl As New ctlTransaction((.Item(modGLobal.Transactions.txtGUID)).ToString, (.Item(modGLobal.Transactions.txtFromAccount)).ToString, (.Item(modGLobal.Transactions.txtToAccount).ToString))
+                        flpTransactions.Controls.Add(TransactionControl)
+                    End If
+                End If
+            End With
+        Next TransactionRecord
+    End Sub
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="ShowIncomeAccounts"></param>
+    ''' <param name="ShowCashAccounts"></param>
+    ''' <param name="ShowSavingsAccounts"></param>
+    ''' <param name="ShowDebtAccounts"></param>
+    ''' <param name="ShowExpenseAccounts"></param>
+    Private Sub PopulateAccountsFrameFromDataTable(Optional ShowIncomeAccounts As Boolean = True, Optional ShowCashAccounts As Boolean = True, Optional ShowSavingsAccounts As Boolean = True, Optional ShowDebtAccounts As Boolean = True, Optional ShowExpenseAccounts As Boolean = True)
 
+
+    End Sub
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    Private Sub PopulateTransactionsFrameFromDataTable()
+
+    End Sub
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Private Sub PopulateTransactionTypeComboBoxes()
         'cmbCreateTransactionType.Items.Clear()
         'cmbFilterTransactionType.Items.Clear()
@@ -152,7 +335,9 @@ Public Class Form1
         'cmbCreateTransactionType.SelectedIndex = 5
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Private Sub PopulateAccountTypeComboBox()
         'cmbNewAccountType.Items.Clear()
         'cmbNewAccountType.Items.Add(AccountTypes.Cash)
@@ -162,7 +347,9 @@ Public Class Form1
         'cmbNewAccountType.Items.Add(AccountTypes.Savings)
         'cmbNewAccountType.SelectedIndex = 4
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     'Private Sub PopulateFilteredTransactions()
 
     '    cmbFilteredTransactions.Items.Clear()
@@ -537,6 +724,9 @@ Public Class Form1
 
     'End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Private Sub GetAccounts()
         dtAccounts.Reset()
         dtFromAccounts.Reset()
@@ -550,23 +740,21 @@ Public Class Form1
             dtToAccounts.ImportRow(dr)
         Next
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Private Sub GetPlannedTransactions()
-        dtPlannedTransactions.Reset()
+        dtTransactions.Reset()
         Dim SQLiteServer As New clsSQLiteConnection
-        SQLiteServer.PopulateADataTable(dtPlannedTransactions, "PlannedTransactions")
+        SQLiteServer.PopulateADataTable(dtTransactions, "Transactions")
     End Sub
-
-    Private Sub GetActualTransactions()
-        dtActualTransactions.Reset()
-        Dim SQLiteServer As New clsSQLiteConnection
-        SQLiteServer.PopulateADataTable(dtActualTransactions, "ActualTransactions")
-    End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Private Sub CalculateCurrentAccountBalances()
         For Each drAccount As DataRow In dtAccounts.Rows
             drAccount.Item("CalculatedBalance") = drAccount.Item("StartingBalance")
-            For Each drActualTransaction As DataRow In dtActualTransactions.Rows
+            For Each drActualTransaction As DataRow In dtTransactions.Rows
                 If drAccount.Item("AccountName").ToString = drActualTransaction.Item("FromAccountName").ToString Then
                     drAccount.Item("CalculatedBalance") = CDec(drAccount.Item("CalculatedBalance")) - CDec(drActualTransaction.Item("Amount"))
                 ElseIf drAccount.Item("AccountName").ToString = drActualTransaction.Item("ToAccountName").ToString Then
@@ -575,11 +763,15 @@ Public Class Form1
             Next drActualTransaction
         Next drAccount
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="AccountName"></param>
+    ''' <param name="BalanceDate"></param>
     Private Sub CalculatePlannedAccountBalance(AccountName As String, BalanceDate As Date)
         For Each drAccount As DataRow In dtAccounts.Rows
             drAccount.Item("CalculatedBalance") = drAccount.Item("StartingBalance")
-            For Each drPLannedTransaction As DataRow In dtPlannedTransactions.Rows
+            For Each drPLannedTransaction As DataRow In dtTransactions.Rows
                 If drAccount.Item("AccountName").ToString = drPLannedTransaction.Item("FromAccountName").ToString Then
                     drAccount.Item("CalculatedBalance") = CDec(drAccount.Item("CalculatedBalance")) - CDec(drPLannedTransaction.Item("Amount"))
                 ElseIf drAccount.Item("AccountName").ToString = drPLannedTransaction.Item("ToAccountName").ToString Then
@@ -588,7 +780,9 @@ Public Class Form1
             Next drPLannedTransaction
         Next drAccount
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Private Sub SaveAccounts()
         'MessageBox.Show(dtAccounts.Rows(0).Item("guid").ToString)
         'Dim dtChanges As DataTable = dtAccounts.GetChanges
@@ -598,41 +792,61 @@ Public Class Form1
         Dim SQLiteServer As New clsSQLiteConnection
         SQLiteServer.SaveADataTable(dtAccounts, "Accounts")
     End Sub
-
-    Private Sub SavePlannedTransactions()
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    Private Sub SaveTransactions()
         Dim SQLiteServer As New clsSQLiteConnection
-        SQLiteServer.SaveADataTable(dtPlannedTransactions, "PlannedTransactions")
+        SQLiteServer.SaveADataTable(dtTransactions, "Transactions")
     End Sub
-
-    Private Sub SaveActualTransactions()
-        Dim SQLiteServer As New clsSQLiteConnection
-        SQLiteServer.SaveADataTable(dtActualTransactions, "ActualTransactions")
-    End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub btnSaveChanges_Click(sender As Object, e As EventArgs) Handles btnSaveChanges.Click
         'MessageBox.Show(dtAccounts.GetChanges.Rows.Count.ToString)
         SaveAccounts()
-        SavePlannedTransactions()
-        SaveActualTransactions()
+        SaveTransactions()
         CalculateCurrentAccountBalances()
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvPlannedTransactions_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvAccounts_DataError(sender As Object, e As DataGridViewDataErrorEventArgs)
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvActualTransactions_DataError(sender As Object, e As DataGridViewDataErrorEventArgs)
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvPlannedTransactions_DataError(sender As Object, e As DataGridViewDataErrorEventArgs)
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub dgvAccountsPlanned_DataError(sender As Object, e As DataGridViewDataErrorEventArgs)
 
     End Sub
@@ -829,34 +1043,49 @@ Public Class Form1
     '    Next Count
     '    Return Balances
     'End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub CtlAccount1_Load(sender As Object, e As EventArgs) Handles CtlAccount1.Load
         CtlAccount1.Label8.ForeColor = Color.WhiteSmoke
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub btnAddAccount_Click(sender As Object, e As EventArgs) Handles btnAddAccount.Click
 
     End Sub
-
-    Public Sub AddANewTransaction()
-        Dim SQLiteConnection As New clsSQLiteConnection
-        Dim TransactionControl As New ctlTransaction(SQLiteConnection.CreateGUID, GetAccountList)
-        flpTransactions.Controls.Add(TransactionControl)
-    End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    'Public Sub AddANewTransaction()
+    '    Dim SQLiteConnection As New clsSQLiteConnection
+    '    Dim TransactionControl As New ctlTransaction(SQLiteConnection.CreateGUID, GetAccountList)
+    '    flpTransactions.Controls.Add(TransactionControl)
+    'End Sub
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Sub AddANewAccount()
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
     Public Function GetAccountList() As List(Of String)
         Dim lstAccounts As New List(Of String)
         Dim dtAccounts As New DataTable
         Dim SQLiteConnection As New clsSQLiteConnection
         Try
-            SQLiteConnection.PopulateADataTable(dtAccounts, GetType(modGLobal.Account).Name)
+            SQLiteConnection.PopulateADataTable(dtAccounts, GetType(modGLobal.Accounts).Name)
             If dtAccounts.Rows.Count > 0 Then
                 For Each dr As DataRow In dtAccounts.Rows
-                    lstAccounts.Add(dr.Item(modGLobal.Account.txtAccountName).ToString)
+                    lstAccounts.Add(dr.Item(modGLobal.Accounts.txtAccountName).ToString)
                 Next dr
             End If
         Catch ex As Exception

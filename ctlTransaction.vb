@@ -9,7 +9,8 @@ Public Class ctlTransaction
 #End Region
 
 #Region "Properties"
-    Public GUID As String
+    Public txtGUID As String
+    Public booIsDeleted As Boolean
 #End Region
 
 #Region "Objects"
@@ -24,7 +25,7 @@ Public Class ctlTransaction
 
         ' Add any initialization after the InitializeComponent() call.
         Dim SQLiteConnection As New clsSQLiteConnection
-        GUID = SQLiteConnection.CreateGUID
+        txtGUID = SQLiteConnection.CreateGUID
         Dim Accounts As New List(Of String)
         Accounts = GetAccountList()
         For Each AccountName As String In Accounts
@@ -32,46 +33,56 @@ Public Class ctlTransaction
             cmbToAccount.Items.Add(AccountName)
         Next
         cmbTransactionType.DataSource = GetType(modGLobal.TransactionTypes).GetEnumNames
-        IOTable = New clsSingleRecordIO(GetType(modGLobal.Transaction), modGLobal.DBConnectionString, GUID)
+        IOTable = New clsSingleRecordIO(GetType(modGLobal.Transactions), modGLobal.DBConnectionString, txtGUID)
         IOTable.GetDataFromDatabase()
         If Not IOTable.RecordIsInDB Then
-            IOTable.UpdateTextField(modGLobal.Transaction.txtFromAccount.ToString, "None")
-            IOTable.UpdateTextField(modGLobal.Transaction.txtToAccount.ToString, "None")
-            IOTable.UpdateTextField(modGLobal.Transaction.decAmount.ToString, "None")
-            IOTable.UpdateTextField(modGLobal.Transaction.datTransactionDate.ToString, "None")
-            IOTable.UpdateTextField(modGLobal.Transaction.booIsCompleted.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.txtFromAccount.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.txtToAccount.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.decAmount.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.datTransactionDate.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.booIsCompleted.ToString, "None")
         End If
-        txtAmount.Text = IOTable.GetNumericFieldValue(modGLobal.Transaction.decAmount.ToString).ToString
-        cmbFromAccount.Text = IOTable.GetTextFieldValue(modGLobal.Transaction.txtFromAccount.ToString)
-        cmbToAccount.Text = IOTable.GetTextFieldValue(modGLobal.Transaction.txtToAccount.ToString)
-        dtpDate.Value = CDate(IOTable.GetTextFieldValue(modGLobal.Transaction.datTransactionDate.ToString))
-        cmbTransactionType.Text = IOTable.GetTextFieldValue(modGLobal.Transaction.txtTransactionType.ToString)
-        Dim Completed As Boolean = CBool(IOTable.GetIntegerFieldValue(modGLobal.Transaction.booIsCompleted.ToString))
+        txtAmount.Text = IOTable.GetNumericFieldValue(modGLobal.Transactions.decAmount.ToString).ToString
+        cmbFromAccount.Text = IOTable.GetTextFieldValue(modGLobal.Transactions.txtFromAccount.ToString)
+        cmbToAccount.Text = IOTable.GetTextFieldValue(modGLobal.Transactions.txtToAccount.ToString)
+        dtpDate.Value = CDate(IOTable.GetDateFieldValue(modGLobal.Transactions.datTransactionDate.ToString))
+        cmbTransactionType.Text = IOTable.GetTextFieldValue(modGLobal.Transactions.txtTransactionType.ToString)
+        Dim Completed As Boolean = CBool(IOTable.GetIntegerFieldValue(modGLobal.Transactions.booIsCompleted.ToString))
     End Sub
 
-    Public Sub New(txtGUID As String, Accounts As List(Of String))
+    Public Sub New(GloballyUniqueUD As String, FromAccountName As String, ToAccountName As String)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        GUID = txtGUID
-        For Each AccountName As String In Accounts
-            cmbFromAccount.Items.Add(AccountName)
-            cmbToAccount.Items.Add(AccountName)
-        Next
+        txtGUID = GloballyUniqueUD
+
+        cmbFromAccount.Items.Add(FromAccountName)
+        cmbToAccount.Items.Add(ToAccountName)
 
         cmbTransactionType.DataSource = GetType(modGLobal.TransactionTypes).GetEnumNames
 
-        IOTable = New clsSingleRecordIO(GetType(modGLobal.Transaction), modGLobal.DBConnectionString, GUID)
+        IOTable = New clsSingleRecordIO(GetType(modGLobal.Transactions), modGLobal.DBConnectionString, txtGUID)
         IOTable.GetDataFromDatabase()
         If Not IOTable.RecordIsInDB Then
-            IOTable.UpdateTextField(modGLobal.Transaction.txtFromAccount.ToString, "None")
-            IOTable.UpdateTextField(modGLobal.Transaction.txtToAccount.ToString, "None")
-            IOTable.UpdateTextField(modGLobal.Transaction.decAmount.ToString, "None")
-            IOTable.UpdateTextField(modGLobal.Transaction.datTransactionDate.ToString, "None")
-            IOTable.UpdateTextField(modGLobal.Transaction.booIsCompleted.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.txtFromAccount.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.txtToAccount.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.decAmount.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.datTransactionDate.ToString, "None")
+            IOTable.UpdateTextField(modGLobal.Transactions.booIsCompleted.ToString, "None")
         End If
+
+    End Sub
+
+    Public Sub New(GloballyUniqueID As String, IsDeleted As Boolean, TransactionDate As Date, Amount As Decimal, FromAccountName As String, ToAccountName As String, TransactionType As String, IsCompleted As Boolean)
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+        txtGUID = GloballyUniqueID
+        booIsDeleted = IsDeleted
 
     End Sub
 #End Region
@@ -82,10 +93,10 @@ Public Class ctlTransaction
         Dim dtAccounts As New DataTable
         Dim SQLiteConnection As New clsSQLiteConnection
         Try
-            SQLiteConnection.PopulateADataTable(dtAccounts, GetType(modGLobal.Account).Name)
+            SQLiteConnection.PopulateADataTable(dtAccounts, GetType(modGLobal.Accounts).Name)
             If dtAccounts.Rows.Count > 0 Then
                 For Each dr As DataRow In dtAccounts.Rows
-                    lstAccounts.Add(dr.Item(modGLobal.Account.txtAccountName).ToString)
+                    lstAccounts.Add(dr.Item(modGLobal.Accounts.txtAccountName).ToString)
                 Next dr
             End If
         Catch ex As Exception
@@ -93,6 +104,12 @@ Public Class ctlTransaction
         End Try
         Return lstAccounts
     End Function
+
+    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
+
+    End Sub
+
+
 #End Region
 
 #Region "Events"

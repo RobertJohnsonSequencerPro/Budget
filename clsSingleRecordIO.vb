@@ -104,6 +104,15 @@ Public Class clsSingleRecordIO
         Return ""
     End Function
 
+    Public Function GetDateFieldValue(ColumnName As String) As Date
+        If Not dtIOTable Is Nothing Then
+            If dtIOTable.Rows.Count > 0 Then
+                Return CDate(dtIOTable.Rows(0).Item(ColumnName))
+            End If
+        End If
+        Return #01/01/2000#
+    End Function
+
     Public Function GetIntegerFieldValue(ColumnName As String) As Integer
         If Not dtIOTable Is Nothing Then
             If dtIOTable.Rows.Count > 0 Then

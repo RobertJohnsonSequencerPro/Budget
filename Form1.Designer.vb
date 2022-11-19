@@ -38,6 +38,17 @@ Partial Class Form1
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.btnAddAccount = New System.Windows.Forms.Button()
         Me.btnAddTransaction = New System.Windows.Forms.Button()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.chkShowIncomeAccounts = New System.Windows.Forms.CheckBox()
+        Me.chkShowCashAccounts = New System.Windows.Forms.CheckBox()
+        Me.chkShowSavingsAccounts = New System.Windows.Forms.CheckBox()
+        Me.chkShowDebtAccounts = New System.Windows.Forms.CheckBox()
+        Me.chkShowExpenseAccounts = New System.Windows.Forms.CheckBox()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.tabMain.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.tlpMain.SuspendLayout()
@@ -45,6 +56,8 @@ Partial Class Form1
         Me.flpTransactions.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'tabMain
@@ -74,15 +87,18 @@ Partial Class Form1
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpMain.Controls.Add(Me.Label2, 1, 0)
-        Me.tlpMain.Controls.Add(Me.flpAccounts, 0, 1)
-        Me.tlpMain.Controls.Add(Me.flpTransactions, 1, 1)
+        Me.tlpMain.Controls.Add(Me.flpAccounts, 0, 2)
+        Me.tlpMain.Controls.Add(Me.flpTransactions, 1, 2)
         Me.tlpMain.Controls.Add(Me.Label1, 0, 0)
+        Me.tlpMain.Controls.Add(Me.TableLayoutPanel2, 0, 1)
+        Me.tlpMain.Controls.Add(Me.TableLayoutPanel3, 1, 1)
         Me.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpMain.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.tlpMain.Location = New System.Drawing.Point(3, 3)
         Me.tlpMain.Name = "tlpMain"
-        Me.tlpMain.RowCount = 2
+        Me.tlpMain.RowCount = 3
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpMain.Size = New System.Drawing.Size(2204, 911)
         Me.tlpMain.TabIndex = 0
@@ -108,9 +124,9 @@ Partial Class Form1
         Me.flpAccounts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flpAccounts.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.flpAccounts.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.flpAccounts.Location = New System.Drawing.Point(3, 28)
+        Me.flpAccounts.Location = New System.Drawing.Point(3, 63)
         Me.flpAccounts.Name = "flpAccounts"
-        Me.flpAccounts.Size = New System.Drawing.Size(1096, 880)
+        Me.flpAccounts.Size = New System.Drawing.Size(1096, 845)
         Me.flpAccounts.TabIndex = 0
         Me.flpAccounts.WrapContents = False
         '
@@ -137,9 +153,9 @@ Partial Class Form1
         Me.flpTransactions.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flpTransactions.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.flpTransactions.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.flpTransactions.Location = New System.Drawing.Point(1105, 28)
+        Me.flpTransactions.Location = New System.Drawing.Point(1105, 63)
         Me.flpTransactions.Name = "flpTransactions"
-        Me.flpTransactions.Size = New System.Drawing.Size(1096, 880)
+        Me.flpTransactions.Size = New System.Drawing.Size(1096, 845)
         Me.flpTransactions.TabIndex = 1
         Me.flpTransactions.WrapContents = False
         '
@@ -236,6 +252,164 @@ Partial Class Form1
         Me.btnAddTransaction.Text = "Add Transaction"
         Me.btnAddTransaction.UseVisualStyleBackColor = True
         '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.TableLayoutPanel2.ColumnCount = 6
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.chkShowIncomeAccounts, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.chkShowCashAccounts, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.chkShowSavingsAccounts, 2, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.chkShowDebtAccounts, 3, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.chkShowExpenseAccounts, 4, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 28)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1096, 29)
+        Me.TableLayoutPanel2.TabIndex = 4
+        '
+        'chkShowIncomeAccounts
+        '
+        Me.chkShowIncomeAccounts.AutoSize = True
+        Me.chkShowIncomeAccounts.BackColor = System.Drawing.Color.FromArgb(CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.chkShowIncomeAccounts.Checked = True
+        Me.chkShowIncomeAccounts.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkShowIncomeAccounts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkShowIncomeAccounts.Location = New System.Drawing.Point(3, 3)
+        Me.chkShowIncomeAccounts.Name = "chkShowIncomeAccounts"
+        Me.chkShowIncomeAccounts.Padding = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.chkShowIncomeAccounts.Size = New System.Drawing.Size(76, 23)
+        Me.chkShowIncomeAccounts.TabIndex = 0
+        Me.chkShowIncomeAccounts.Text = "Income"
+        Me.chkShowIncomeAccounts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkShowIncomeAccounts.UseVisualStyleBackColor = False
+        '
+        'chkShowCashAccounts
+        '
+        Me.chkShowCashAccounts.AutoSize = True
+        Me.chkShowCashAccounts.Checked = True
+        Me.chkShowCashAccounts.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkShowCashAccounts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkShowCashAccounts.Location = New System.Drawing.Point(85, 3)
+        Me.chkShowCashAccounts.Name = "chkShowCashAccounts"
+        Me.chkShowCashAccounts.Padding = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.chkShowCashAccounts.Size = New System.Drawing.Size(62, 23)
+        Me.chkShowCashAccounts.TabIndex = 1
+        Me.chkShowCashAccounts.Text = "Cash"
+        Me.chkShowCashAccounts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkShowCashAccounts.UseVisualStyleBackColor = True
+        '
+        'chkShowSavingsAccounts
+        '
+        Me.chkShowSavingsAccounts.AutoSize = True
+        Me.chkShowSavingsAccounts.Checked = True
+        Me.chkShowSavingsAccounts.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkShowSavingsAccounts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkShowSavingsAccounts.Location = New System.Drawing.Point(153, 3)
+        Me.chkShowSavingsAccounts.Name = "chkShowSavingsAccounts"
+        Me.chkShowSavingsAccounts.Padding = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.chkShowSavingsAccounts.Size = New System.Drawing.Size(76, 23)
+        Me.chkShowSavingsAccounts.TabIndex = 2
+        Me.chkShowSavingsAccounts.Text = "Savings"
+        Me.chkShowSavingsAccounts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkShowSavingsAccounts.UseVisualStyleBackColor = True
+        '
+        'chkShowDebtAccounts
+        '
+        Me.chkShowDebtAccounts.AutoSize = True
+        Me.chkShowDebtAccounts.Checked = True
+        Me.chkShowDebtAccounts.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkShowDebtAccounts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkShowDebtAccounts.Location = New System.Drawing.Point(235, 3)
+        Me.chkShowDebtAccounts.Name = "chkShowDebtAccounts"
+        Me.chkShowDebtAccounts.Padding = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.chkShowDebtAccounts.Size = New System.Drawing.Size(61, 23)
+        Me.chkShowDebtAccounts.TabIndex = 3
+        Me.chkShowDebtAccounts.Text = "Debt"
+        Me.chkShowDebtAccounts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkShowDebtAccounts.UseVisualStyleBackColor = True
+        '
+        'chkShowExpenseAccounts
+        '
+        Me.chkShowExpenseAccounts.AutoSize = True
+        Me.chkShowExpenseAccounts.Checked = True
+        Me.chkShowExpenseAccounts.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkShowExpenseAccounts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkShowExpenseAccounts.Location = New System.Drawing.Point(302, 3)
+        Me.chkShowExpenseAccounts.Name = "chkShowExpenseAccounts"
+        Me.chkShowExpenseAccounts.Padding = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.chkShowExpenseAccounts.Size = New System.Drawing.Size(79, 23)
+        Me.chkShowExpenseAccounts.TabIndex = 4
+        Me.chkShowExpenseAccounts.Text = "Expense"
+        Me.chkShowExpenseAccounts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkShowExpenseAccounts.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.TableLayoutPanel3.ColumnCount = 5
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.Label3, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.DateTimePicker1, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label4, 2, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.DateTimePicker2, 3, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(1105, 28)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1096, 29)
+        Me.TableLayoutPanel3.TabIndex = 5
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Location = New System.Drawing.Point(3, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(35, 29)
+        Me.Label3.TabIndex = 0
+        Me.Label3.Text = "From"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DateTimePicker1.Location = New System.Drawing.Point(44, 3)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(200, 23)
+        Me.DateTimePicker1.TabIndex = 1
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label4.Location = New System.Drawing.Point(250, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(19, 29)
+        Me.Label4.TabIndex = 2
+        Me.Label4.Text = "To"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DateTimePicker2.Location = New System.Drawing.Point(275, 3)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(200, 23)
+        Me.DateTimePicker2.TabIndex = 3
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -256,6 +430,10 @@ Partial Class Form1
         Me.flpTransactions.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.FlowLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -276,4 +454,15 @@ Partial Class Form1
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents btnAddAccount As Button
     Friend WithEvents btnAddTransaction As Button
+    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents chkShowIncomeAccounts As CheckBox
+    Friend WithEvents chkShowCashAccounts As CheckBox
+    Friend WithEvents chkShowSavingsAccounts As CheckBox
+    Friend WithEvents chkShowDebtAccounts As CheckBox
+    Friend WithEvents chkShowExpenseAccounts As CheckBox
+    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents Label3 As Label
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents Label4 As Label
+    Friend WithEvents DateTimePicker2 As DateTimePicker
 End Class

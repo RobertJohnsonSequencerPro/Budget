@@ -59,7 +59,7 @@ Module modGLobal
     End Enum
 
 #Region "Datatable Enums"
-    Public Enum Account
+    Public Enum Accounts
         txtGUID
         datRecordCreated
         booIsDeleted
@@ -70,7 +70,7 @@ Module modGLobal
         txtSubAccountToAccountName
     End Enum
 
-    Public Enum Transaction
+    Public Enum Transactions
         txtGUID
         datRecordCreated
         booIsDeleted
@@ -95,22 +95,22 @@ Module modGLobal
 
 #Region "Objects"
     'Default accounts
-    Public Checking As Account
-    Public Saving As Account
-    Public Income As Account
-    Public Rent As Account
-    Public Mortgage As Account
-    Public Utilties As Account
-    Public Fuel As Account
-    Public Food As Account
-    Public Car_Insurance As Account
-    Public Health_Care As Account
-    Public Credit_Card_Debt As Account
-    Public Save_For_Car_Maintenance As Account
-    Public Clothing As Account
-    Public Save_For_School_Expense As Account
-    Public Save_For_Vacation As Account
-    Public Save_For_Gifts As Account
+    Public Checking As Accounts
+    Public Saving As Accounts
+    Public Income As Accounts
+    Public Rent As Accounts
+    Public Mortgage As Accounts
+    Public Utilties As Accounts
+    Public Fuel As Accounts
+    Public Food As Accounts
+    Public Car_Insurance As Accounts
+    Public Health_Care As Accounts
+    Public Credit_Card_Debt As Accounts
+    Public Save_For_Car_Maintenance As Accounts
+    Public Clothing As Accounts
+    Public Save_For_School_Expense As Accounts
+    Public Save_For_Vacation As Accounts
+    Public Save_For_Gifts As Accounts
 
 #End Region
 

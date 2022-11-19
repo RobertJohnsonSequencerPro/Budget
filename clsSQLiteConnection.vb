@@ -24,8 +24,8 @@ Public Class clsSQLiteConnection
             End If
         End If
 
-        CreateTableFromEnum(GetType(modGLobal.Account))
-        CreateTableFromEnum(GetType(modGLobal.Transaction))
+        CreateTableFromEnum(GetType(modGLobal.Accounts))
+        CreateTableFromEnum(GetType(modGLobal.Transactions))
         CreateTableFromEnum(GetType(modGLobal.CalculatedAccountBalance))
 
         Return True

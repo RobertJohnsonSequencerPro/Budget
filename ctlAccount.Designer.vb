@@ -52,7 +52,7 @@ Partial Class ctlAccount
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.9502!))
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158.0!))
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158.0!))
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170.0!))
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171.0!))
         Me.tlpMain.Controls.Add(Me.Label2, 1, 0)
         Me.tlpMain.Controls.Add(Me.txtAccountName, 0, 1)
         Me.tlpMain.Controls.Add(Me.Label1, 0, 0)
@@ -78,7 +78,7 @@ Partial Class ctlAccount
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpMain.Size = New System.Drawing.Size(1060, 131)
+        Me.tlpMain.Size = New System.Drawing.Size(1061, 131)
         Me.tlpMain.TabIndex = 0
         '
         'Label2
@@ -136,7 +136,7 @@ Partial Class ctlAccount
         Me.Label8.Location = New System.Drawing.Point(734, 13)
         Me.Label8.Margin = New System.Windows.Forms.Padding(3, 13, 3, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(323, 17)
+        Me.Label8.Size = New System.Drawing.Size(324, 17)
         Me.Label8.TabIndex = 9
         Me.Label8.Text = "Parent Account:"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -158,7 +158,7 @@ Partial Class ctlAccount
         Me.cmbParentAccount.FormattingEnabled = True
         Me.cmbParentAccount.Location = New System.Drawing.Point(734, 33)
         Me.cmbParentAccount.Name = "cmbParentAccount"
-        Me.cmbParentAccount.Size = New System.Drawing.Size(323, 25)
+        Me.cmbParentAccount.Size = New System.Drawing.Size(324, 25)
         Me.cmbParentAccount.TabIndex = 11
         '
         'Label3
@@ -216,7 +216,7 @@ Partial Class ctlAccount
         Me.Label7.Location = New System.Drawing.Point(892, 82)
         Me.Label7.Margin = New System.Windows.Forms.Padding(3, 21, 3, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(165, 17)
+        Me.Label7.Size = New System.Drawing.Size(166, 17)
         Me.Label7.TabIndex = 7
         Me.Label7.Text = "Starting Balance Date:"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -238,7 +238,7 @@ Partial Class ctlAccount
         Me.dtpStartingBalanceDate.Location = New System.Drawing.Point(892, 102)
         Me.dtpStartingBalanceDate.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.dtpStartingBalanceDate.Name = "dtpStartingBalanceDate"
-        Me.dtpStartingBalanceDate.Size = New System.Drawing.Size(165, 25)
+        Me.dtpStartingBalanceDate.Size = New System.Drawing.Size(166, 25)
         Me.dtpStartingBalanceDate.TabIndex = 18
         '
         'lblCurrentBalance
@@ -288,9 +288,9 @@ Partial Class ctlAccount
         Me.Controls.Add(Me.tlpMain)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.MinimumSize = New System.Drawing.Size(1060, 0)
+        Me.MinimumSize = New System.Drawing.Size(1060, 2)
         Me.Name = "ctlAccount"
-        Me.Size = New System.Drawing.Size(1060, 131)
+        Me.Size = New System.Drawing.Size(1061, 131)
         Me.tlpMain.ResumeLayout(False)
         Me.tlpMain.PerformLayout()
         Me.ResumeLayout(False)
