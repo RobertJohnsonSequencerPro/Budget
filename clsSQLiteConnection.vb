@@ -5,17 +5,22 @@ Imports System.Data.SQLite
 
 
 Public Class clsSQLiteConnection
-    Dim Path As String = "C:\Users\Public\Documents\SequencerPro"
+    Dim Path As String = "C:\Users\Public\Documents\Budget"
     Dim Filename As String = "SpendingPlannerDB.db"
     Dim FullPath As String = System.IO.Path.Combine(Path, Filename)
     Public ConnectionString As String = String.Format("Data Source = {0}", FullPath)
     Dim SQLiteDatabaseAdapter As New SQLiteDataAdapter
 
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Sub New()
 
     End Sub
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
     Public Function CreateSQLiteDatabase() As Boolean
         'Check if the database already exists. If not, then create it and add the users table and add one admin user
         If Not DatabaseExists(FullPath) Then
@@ -26,11 +31,14 @@ Public Class clsSQLiteConnection
 
         CreateTableFromEnum(GetType(modGLobal.Accounts))
         CreateTableFromEnum(GetType(modGLobal.Transactions))
-        CreateTableFromEnum(GetType(modGLobal.CalculatedAccountBalance))
 
         Return True
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="Enumeration"></param>
+    ''' <returns></returns>
     Public Function CreateTableFromEnum(ByRef Enumeration As Type) As Boolean
         'This function assumes that the Enum name is the desired table name and that each item in the enum is a desired column name.
         'It further assumes that the first 3 letters of the column name indicate the data type.
@@ -66,11 +74,21 @@ Public Class clsSQLiteConnection
         End Try
         Return True
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="Fullpath"></param>
+    ''' <returns></returns>
     Private Function DatabaseExists(Fullpath As String) As Boolean
         Return System.IO.File.Exists(Fullpath)
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="TableName"></param>
+    ''' <param name="ColumnName"></param>
+    ''' <param name="DataType"></param>
+    ''' <returns></returns>
     Public Function AddAColumnToATable(TableName As String, ColumnName As String, DataType As String) As Boolean
         'Allowed DataTypes are INTEGER, TEXT, BLOB, REAL, NUMERIC
         Try
@@ -97,7 +115,9 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Sub AddDefaultsToDatabase()
         Dim SQLiteServer As New clsSQLiteConnection
         Dim dtAccounts As New DataTable
@@ -197,7 +217,12 @@ Public Class clsSQLiteConnection
     '    Seed = Seed & DateTime.Now.Ticks.ToString
     '    Return Seed
     'End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="AccountName"></param>
+    ''' <param name="EndDate"></param>
+    ''' <returns></returns>
     Public Function CreateGraphPoints(AccountName As String, EndDate As Date) As Boolean
         Dim dtGraphPoints As New DataTable
         PopulateDataTableMatchString(dtGraphPoints, "AccountGraphs", "AccountName", AccountName)
@@ -238,7 +263,11 @@ Public Class clsSQLiteConnection
         SaveADataTable(dtGraphPoints, "AccountGraphs")
         Return True
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="TableName"></param>
+    ''' <returns></returns>
     Public Function CreateATableInDatabase(TableName As String) As Boolean
         'Create a table in the SQLite database created by this class
 
@@ -256,7 +285,12 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="TargetDataTable"></param>
+    ''' <param name="TableName"></param>
+    ''' <returns></returns>
     Public Function PopulateADataTable(ByRef TargetDataTable As DataTable, TableName As String) As Boolean
 
         Try
@@ -276,7 +310,14 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dtTargetDataTable"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="SearchColumnName"></param>
+    ''' <param name="StringToSearchFor"></param>
+    ''' <returns></returns>
     Public Function PopulateADataTableFiltered(ByRef dtTargetDataTable As DataTable, TableName As String, SearchColumnName As String, StringToSearchFor As String) As Boolean
 
         Try
@@ -297,7 +338,16 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dtTargetDataTable"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="FirstSearchColumnName"></param>
+    ''' <param name="FirstStringToSearchFor"></param>
+    ''' <param name="SecondSearchColumnName"></param>
+    ''' <param name="SecondStringToSearchFor"></param>
+    ''' <returns></returns>
     Public Function PopulateADataTableFilteredByTwoFields(ByRef dtTargetDataTable As DataTable, TableName As String, FirstSearchColumnName As String, FirstStringToSearchFor As String, SecondSearchColumnName As String, SecondStringToSearchFor As String) As Boolean
 
 
@@ -319,7 +369,14 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dtTargetDataTable"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="BooleanColumnName"></param>
+    ''' <param name="BooleanValue"></param>
+    ''' <returns></returns>
     Public Function PopulateADataTableFilteredByBoolean(ByRef dtTargetDataTable As DataTable, TableName As String, BooleanColumnName As String, BooleanValue As Boolean) As Boolean
 
 
@@ -337,11 +394,22 @@ Public Class clsSQLiteConnection
                 Return True
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error in clsSQLiteServer.PopulateADataTableFiltered. TableName = " & TableName & " " & ex.Message)
+            MessageBox.Show("Error in clsSQLiteServer.PopulateADataTableFilteredbyBoolean. TableName = " & TableName & " " & ex.Message)
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dtTargetDataTable"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="BooleanColumnName"></param>
+    ''' <param name="BooleanValue"></param>
+    ''' <param name="OrderByColumn"></param>
+    ''' <param name="OrderDescending"></param>
+    ''' <param name="NumberOfRows"></param>
+    ''' <param name="StartFromRow"></param>
+    ''' <returns></returns>
     Public Function PopulateADataTableFilteredByBooleanAndLimitRows(ByRef dtTargetDataTable As DataTable, TableName As String, BooleanColumnName As String, BooleanValue As Boolean, OrderByColumn As String, Optional OrderDescending As Boolean = False, Optional NumberOfRows As Integer = 1000, Optional StartFromRow As Integer = 0) As Boolean
 
 
@@ -369,7 +437,14 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dt"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="MatchField"></param>
+    ''' <param name="MatchValue"></param>
+    ''' <returns></returns>
     Public Function PopulateDataTableMatchString(ByRef dt As DataTable, TableName As String, MatchField As String, MatchValue As String) As Boolean
 
         Try
@@ -386,7 +461,16 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dtTargetDataTable"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="OrderByColumn"></param>
+    ''' <param name="OrderDescending"></param>
+    ''' <param name="NumberOfRows"></param>
+    ''' <param name="StartFromRow"></param>
+    ''' <returns></returns>
     Public Function PopulateAdataTableLimitNumberOfRows(ByRef dtTargetDataTable As DataTable, TableName As String, OrderByColumn As String, Optional OrderDescending As Boolean = False, Optional NumberOfRows As Integer = 1000, Optional StartFromRow As Integer = 0) As Boolean
 
         Try
@@ -411,7 +495,18 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dtTargetDataTable"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="SearchColumnName"></param>
+    ''' <param name="StringToSearchFor"></param>
+    ''' <param name="OrderByColumn"></param>
+    ''' <param name="OrderDescending"></param>
+    ''' <param name="NumberOfRows"></param>
+    ''' <param name="StartFromRow"></param>
+    ''' <returns></returns>
     Public Function PopulateAdataTableFilteredAndLimitNumberOfRows(ByRef dtTargetDataTable As DataTable, TableName As String, SearchColumnName As String, StringToSearchFor As String, OrderByColumn As String, Optional OrderDescending As Boolean = False, Optional NumberOfRows As Integer = 1000, Optional StartFromRow As Integer = 0) As Boolean
 
 
@@ -432,11 +527,19 @@ Public Class clsSQLiteConnection
                 Return True
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error in clsSQLiteServer.PopulateADataTableLimitNumberOfRows. TableName = " & TableName & " " & ex.Message)
+            MessageBox.Show("Error in clsSQLiteServer.PopulateADataTableFilteredAndLimitNumberOfRows. TableName = " & TableName & " " & ex.Message)
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dtTargetDataTable"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="DateField"></param>
+    ''' <param name="StartDate"></param>
+    ''' <param name="EndDate"></param>
+    ''' <returns></returns>
     Public Function PopulateADataTableByDateRange(ByRef dtTargetDataTable As DataTable, TableName As String, DateField As String, StartDate As Date, EndDate As Date) As Boolean
 
 
@@ -457,7 +560,12 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dt"></param>
+    ''' <param name="TableNameInDataBase"></param>
+    ''' <returns></returns>
     Public Function SaveADataTable(ByRef dt As DataTable, TableNameInDataBase As String) As Boolean
 
 
@@ -484,13 +592,25 @@ Public Class clsSQLiteConnection
     '    TargetDataset.Tables(TableName).Rows.Add(SourceDataRow)
     '    Return True
     'End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="TargetDataTable"></param>
+    ''' <param name="SourceDataRow"></param>
+    ''' <returns></returns>
     Public Function AddARowToADataTable(ByRef TargetDataTable As DataTable, ByRef SourceDataRow As DataRow) As Boolean
         'This function assumes that the source datarow has the same structure as the targeted datatable.
         TargetDataTable.Rows.Add(SourceDataRow)
         Return True
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="TargetDataSet"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="UpdatedDataRow"></param>
+    ''' <param name="MatchingItem"></param>
+    ''' <returns></returns>
     Public Function UpdateARowInADataset(ByRef TargetDataSet As DataSet, TableName As String, ByRef UpdatedDataRow As DataRow, MatchingItem As String) As Boolean
         'This function updates a datrow in an existing datatable with name TableName. The function searches the rows in the table for 
         'a matching value between the UpdatedRow and the Row that will be updated. Normally this would be the the Primary Key and would
@@ -502,11 +622,19 @@ Public Class clsSQLiteConnection
         Next dr
         Return False
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="Path"></param>
+    ''' <returns></returns>
     Private Function DirectoryExists(Path As String) As Boolean
         Return System.IO.Directory.Exists(Path)
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="Path"></param>
+    ''' <returns></returns>
     Public Function CreateDirectory(Path As String) As Boolean
         Try
             My.Computer.FileSystem.CreateDirectory(Path)
@@ -515,12 +643,22 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
     Public Function CreateGUID() As String
         Dim NewGUID As String = Guid.NewGuid.ToString
         Return NewGUID
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dr"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="MatchField"></param>
+    ''' <param name="MatchValue"></param>
+    ''' <returns></returns>
     Public Function PopulateDataRowMatchString(ByRef dr As DataRow, TableName As String, MatchField As String, MatchValue As String) As Boolean
 
         Dim dtTemporary As New DataTable
@@ -544,7 +682,15 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dt"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="Field"></param>
+    ''' <param name="ContainedString"></param>
+    ''' <param name="MaxRows"></param>
+    ''' <returns></returns>
     Public Function PopulateDataTableByContainedString(ByRef dt As DataTable, TableName As String, Field As String, ContainedString As String, Optional MaxRows As Integer = 1000) As Boolean
         'Note: as of 27MAR2022 this function has not been tested for correct behavior.
 
@@ -562,7 +708,15 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dt"></param>
+    ''' <param name="TableName"></param>
+    ''' <param name="Field"></param>
+    ''' <param name="ContainedString"></param>
+    ''' <param name="OrderByColumn"></param>
+    ''' <returns></returns>
     Public Function PopulateDataTableByContainedStringLimitTo16Rows(ByRef dt As DataTable, TableName As String, Field As String, ContainedString As String, OrderByColumn As String) As Boolean
 
         Try
@@ -579,7 +733,12 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="dt"></param>
+    ''' <param name="TableName"></param>
+    ''' <returns></returns>
     Public Function CreateEmptyDataTableFromSchema(ByRef dt As DataTable, TableName As String) As Boolean
 
         Try
@@ -596,7 +755,12 @@ Public Class clsSQLiteConnection
             Return False
         End Try
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="TableName"></param>
+    ''' <param name="ColumnName"></param>
+    ''' <returns></returns>
     Public Function CreateSingleColumnIndex(TableName As String, ColumnName As String) As Boolean
 
         Try
@@ -614,7 +778,12 @@ Public Class clsSQLiteConnection
         End Try
         Return False
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="TableName"></param>
+    ''' <param name="ColumnName"></param>
+    ''' <returns></returns>
     Public Function CreateSingleColumnIndexUnique(TableName As String, ColumnName As String) As Boolean
 
         Try
@@ -632,7 +801,13 @@ Public Class clsSQLiteConnection
         End Try
         Return False
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="TableName"></param>
+    ''' <param name="FirstColumnName"></param>
+    ''' <param name="SecondColumnName"></param>
+    ''' <returns></returns>
     Public Function CreateTwoColumnIndex(TableName As String, FirstColumnName As String, SecondColumnName As String) As Boolean
 
         Try
@@ -650,7 +825,14 @@ Public Class clsSQLiteConnection
         End Try
         Return False
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="TableName"></param>
+    ''' <param name="FirstColumnName"></param>
+    ''' <param name="SecondColumnName"></param>
+    ''' <param name="ThirdColumnName"></param>
+    ''' <returns></returns>
     Public Function CreateThreeColumnIndex(TableName As String, FirstColumnName As String, SecondColumnName As String, ThirdColumnName As String) As Boolean
 
         Try
@@ -668,9 +850,15 @@ Public Class clsSQLiteConnection
         End Try
         Return False
     End Function
-
-
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="Table1Name"></param>
+    ''' <param name="Table2Name"></param>
+    ''' <param name="JoinOnTable1ColumnName"></param>
+    ''' <param name="JoinOnTable2ColumnName"></param>
+    ''' <param name="InnerJoin"></param>
+    ''' <returns></returns>
     Public Function CreateAJoinedTable(Table1Name As String, Table2Name As String, JoinOnTable1ColumnName As String, JoinOnTable2ColumnName As String, Optional InnerJoin As Boolean = True) As DataTable
         Dim dtTemp As New DataTable
         Try
@@ -695,7 +883,16 @@ Public Class clsSQLiteConnection
         End Try
         Return dtTemp
     End Function
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="Table1Name"></param>
+    ''' <param name="Table2Name"></param>
+    ''' <param name="JoinOnTable1ColumnName"></param>
+    ''' <param name="JoinOnTable2ColumnName"></param>
+    ''' <param name="FullJoin"></param>
+    ''' <param name="LeftJoin"></param>
+    ''' <returns></returns>
     Public Function CreateAJoinedTable(Table1Name As String, Table2Name As String, JoinOnTable1ColumnName As String, JoinOnTable2ColumnName As String, Optional FullJoin As Boolean = True, Optional LeftJoin As Boolean = True) As DataTable
         Dim dtTemp As New DataTable
         Try

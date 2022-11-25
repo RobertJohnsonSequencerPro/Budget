@@ -110,7 +110,7 @@ Public Class clsSingleRecordIO
                 Return CDate(dtIOTable.Rows(0).Item(ColumnName))
             End If
         End If
-        Return #01/01/2000#
+        Return #01/01/2022#
     End Function
 
     Public Function GetIntegerFieldValue(ColumnName As String) As Integer

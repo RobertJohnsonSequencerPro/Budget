@@ -23,18 +23,18 @@ Partial Class ctlAccount
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.tlpMain = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblAccountTypeHeader = New System.Windows.Forms.Label()
         Me.txtAccountName = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblAccountNameHeader = New System.Windows.Forms.Label()
         Me.chkVirtualAccount = New System.Windows.Forms.CheckBox()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.lblParentAccountHeader = New System.Windows.Forms.Label()
         Me.cmbAccountType = New System.Windows.Forms.ComboBox()
         Me.cmbParentAccount = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.lblCurrentBalanceHeader = New System.Windows.Forms.Label()
+        Me.lblProjectedBalanceHeader = New System.Windows.Forms.Label()
+        Me.lblProjectedBalanceDateHeader = New System.Windows.Forms.Label()
+        Me.lblStartingBalanceHeader = New System.Windows.Forms.Label()
+        Me.lblStartingBalanceDateHeader = New System.Windows.Forms.Label()
         Me.dtpProjectedBalanceDate = New System.Windows.Forms.DateTimePicker()
         Me.dtpStartingBalanceDate = New System.Windows.Forms.DateTimePicker()
         Me.lblCurrentBalance = New System.Windows.Forms.Label()
@@ -47,232 +47,209 @@ Partial Class ctlAccount
         '
         Me.tlpMain.AutoSize = True
         Me.tlpMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpMain.BackColor = System.Drawing.Color.FromArgb(CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer))
         Me.tlpMain.ColumnCount = 5
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.04979!))
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.9502!))
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158.0!))
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158.0!))
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 173.0!))
-        Me.tlpMain.Controls.Add(Me.Label2, 1, 0)
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpMain.Controls.Add(Me.lblAccountTypeHeader, 1, 0)
         Me.tlpMain.Controls.Add(Me.txtAccountName, 0, 1)
-        Me.tlpMain.Controls.Add(Me.Label1, 0, 0)
+        Me.tlpMain.Controls.Add(Me.lblAccountNameHeader, 0, 0)
         Me.tlpMain.Controls.Add(Me.chkVirtualAccount, 2, 1)
-        Me.tlpMain.Controls.Add(Me.Label8, 3, 0)
+        Me.tlpMain.Controls.Add(Me.lblParentAccountHeader, 3, 0)
         Me.tlpMain.Controls.Add(Me.cmbAccountType, 1, 1)
         Me.tlpMain.Controls.Add(Me.cmbParentAccount, 3, 1)
-        Me.tlpMain.Controls.Add(Me.Label3, 0, 2)
-        Me.tlpMain.Controls.Add(Me.Label4, 1, 2)
-        Me.tlpMain.Controls.Add(Me.Label5, 2, 2)
-        Me.tlpMain.Controls.Add(Me.Label6, 3, 2)
-        Me.tlpMain.Controls.Add(Me.Label7, 4, 2)
+        Me.tlpMain.Controls.Add(Me.lblCurrentBalanceHeader, 0, 2)
+        Me.tlpMain.Controls.Add(Me.lblProjectedBalanceHeader, 1, 2)
+        Me.tlpMain.Controls.Add(Me.lblProjectedBalanceDateHeader, 2, 2)
+        Me.tlpMain.Controls.Add(Me.lblStartingBalanceHeader, 3, 2)
+        Me.tlpMain.Controls.Add(Me.lblStartingBalanceDateHeader, 4, 2)
         Me.tlpMain.Controls.Add(Me.dtpProjectedBalanceDate, 2, 3)
         Me.tlpMain.Controls.Add(Me.dtpStartingBalanceDate, 4, 3)
         Me.tlpMain.Controls.Add(Me.lblCurrentBalance, 0, 3)
         Me.tlpMain.Controls.Add(Me.txtStartingBalance, 3, 3)
         Me.tlpMain.Controls.Add(Me.lblProjectedBalance, 1, 3)
-        Me.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpMain.Location = New System.Drawing.Point(0, 0)
+        Me.tlpMain.Margin = New System.Windows.Forms.Padding(2)
         Me.tlpMain.Name = "tlpMain"
         Me.tlpMain.RowCount = 4
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpMain.Size = New System.Drawing.Size(1063, 131)
+        Me.tlpMain.Size = New System.Drawing.Size(886, 116)
         Me.tlpMain.TabIndex = 0
         '
-        'Label2
+        'lblAccountTypeHeader
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label2.Location = New System.Drawing.Point(364, 13)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(3, 13, 3, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(206, 17)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Account Type:"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.lblAccountTypeHeader.Location = New System.Drawing.Point(256, 2)
+        Me.lblAccountTypeHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblAccountTypeHeader.Name = "lblAccountTypeHeader"
+        Me.lblAccountTypeHeader.Size = New System.Drawing.Size(200, 25)
+        Me.lblAccountTypeHeader.TabIndex = 2
+        Me.lblAccountTypeHeader.Text = "Account Type:"
+        Me.lblAccountTypeHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'txtAccountName
         '
-        Me.txtAccountName.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtAccountName.Location = New System.Drawing.Point(3, 33)
+        Me.txtAccountName.Location = New System.Drawing.Point(2, 31)
+        Me.txtAccountName.Margin = New System.Windows.Forms.Padding(2)
         Me.txtAccountName.Name = "txtAccountName"
         Me.txtAccountName.PlaceholderText = "Account Name"
-        Me.txtAccountName.Size = New System.Drawing.Size(355, 25)
+        Me.txtAccountName.Size = New System.Drawing.Size(250, 25)
         Me.txtAccountName.TabIndex = 0
         '
-        'Label1
+        'lblAccountNameHeader
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Location = New System.Drawing.Point(3, 13)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(3, 13, 3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(355, 17)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Account Name:"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.lblAccountNameHeader.Location = New System.Drawing.Point(2, 2)
+        Me.lblAccountNameHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblAccountNameHeader.Name = "lblAccountNameHeader"
+        Me.lblAccountNameHeader.Size = New System.Drawing.Size(250, 25)
+        Me.lblAccountNameHeader.TabIndex = 1
+        Me.lblAccountNameHeader.Text = "Account Name:"
+        Me.lblAccountNameHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'chkVirtualAccount
         '
-        Me.chkVirtualAccount.AutoSize = True
-        Me.chkVirtualAccount.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkVirtualAccount.Location = New System.Drawing.Point(597, 33)
-        Me.chkVirtualAccount.Margin = New System.Windows.Forms.Padding(24, 3, 13, 3)
+        Me.chkVirtualAccount.Location = New System.Drawing.Point(460, 31)
+        Me.chkVirtualAccount.Margin = New System.Windows.Forms.Padding(2)
         Me.chkVirtualAccount.Name = "chkVirtualAccount"
-        Me.chkVirtualAccount.Size = New System.Drawing.Size(121, 25)
+        Me.chkVirtualAccount.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
+        Me.chkVirtualAccount.Size = New System.Drawing.Size(150, 25)
         Me.chkVirtualAccount.TabIndex = 8
         Me.chkVirtualAccount.Text = "Virtual Account"
         Me.chkVirtualAccount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.chkVirtualAccount.UseVisualStyleBackColor = True
         '
-        'Label8
+        'lblParentAccountHeader
         '
-        Me.Label8.AutoSize = True
-        Me.tlpMain.SetColumnSpan(Me.Label8, 2)
-        Me.Label8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label8.Enabled = False
-        Me.Label8.Location = New System.Drawing.Point(734, 13)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(3, 13, 3, 0)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(326, 17)
-        Me.Label8.TabIndex = 9
-        Me.Label8.Text = "Parent Account:"
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.tlpMain.SetColumnSpan(Me.lblParentAccountHeader, 2)
+        Me.lblParentAccountHeader.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.lblParentAccountHeader.Location = New System.Drawing.Point(614, 2)
+        Me.lblParentAccountHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblParentAccountHeader.Name = "lblParentAccountHeader"
+        Me.lblParentAccountHeader.Size = New System.Drawing.Size(268, 25)
+        Me.lblParentAccountHeader.TabIndex = 9
+        Me.lblParentAccountHeader.Text = "Parent Account:"
+        Me.lblParentAccountHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'cmbAccountType
         '
-        Me.cmbAccountType.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbAccountType.FormattingEnabled = True
-        Me.cmbAccountType.Location = New System.Drawing.Point(364, 33)
+        Me.cmbAccountType.Location = New System.Drawing.Point(256, 31)
+        Me.cmbAccountType.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbAccountType.Name = "cmbAccountType"
-        Me.cmbAccountType.Size = New System.Drawing.Size(206, 25)
+        Me.cmbAccountType.Size = New System.Drawing.Size(200, 25)
         Me.cmbAccountType.TabIndex = 10
         '
         'cmbParentAccount
         '
         Me.tlpMain.SetColumnSpan(Me.cmbParentAccount, 2)
-        Me.cmbParentAccount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbParentAccount.Enabled = False
         Me.cmbParentAccount.FormattingEnabled = True
-        Me.cmbParentAccount.Location = New System.Drawing.Point(734, 33)
+        Me.cmbParentAccount.Location = New System.Drawing.Point(614, 31)
+        Me.cmbParentAccount.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbParentAccount.Name = "cmbParentAccount"
-        Me.cmbParentAccount.Size = New System.Drawing.Size(326, 25)
+        Me.cmbParentAccount.Size = New System.Drawing.Size(268, 25)
         Me.cmbParentAccount.TabIndex = 11
         '
-        'Label3
+        'lblCurrentBalanceHeader
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Location = New System.Drawing.Point(3, 82)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(3, 21, 3, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(355, 17)
-        Me.Label3.TabIndex = 3
-        Me.Label3.Text = "Current Balance:"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.lblCurrentBalanceHeader.Location = New System.Drawing.Point(2, 60)
+        Me.lblCurrentBalanceHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblCurrentBalanceHeader.Name = "lblCurrentBalanceHeader"
+        Me.lblCurrentBalanceHeader.Size = New System.Drawing.Size(250, 25)
+        Me.lblCurrentBalanceHeader.TabIndex = 3
+        Me.lblCurrentBalanceHeader.Text = "Current Balance:"
+        Me.lblCurrentBalanceHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label4
+        'lblProjectedBalanceHeader
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label4.Location = New System.Drawing.Point(364, 82)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(3, 21, 3, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(206, 17)
-        Me.Label4.TabIndex = 4
-        Me.Label4.Text = "Projected Balance:"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.lblProjectedBalanceHeader.Location = New System.Drawing.Point(256, 60)
+        Me.lblProjectedBalanceHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblProjectedBalanceHeader.Name = "lblProjectedBalanceHeader"
+        Me.lblProjectedBalanceHeader.Size = New System.Drawing.Size(200, 25)
+        Me.lblProjectedBalanceHeader.TabIndex = 4
+        Me.lblProjectedBalanceHeader.Text = "Projected Balance:"
+        Me.lblProjectedBalanceHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label5
+        'lblProjectedBalanceDateHeader
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label5.Location = New System.Drawing.Point(576, 82)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(3, 21, 3, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(152, 17)
-        Me.Label5.TabIndex = 5
-        Me.Label5.Text = "Projected Balance Date:"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.lblProjectedBalanceDateHeader.Location = New System.Drawing.Point(460, 60)
+        Me.lblProjectedBalanceDateHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblProjectedBalanceDateHeader.Name = "lblProjectedBalanceDateHeader"
+        Me.lblProjectedBalanceDateHeader.Size = New System.Drawing.Size(150, 25)
+        Me.lblProjectedBalanceDateHeader.TabIndex = 5
+        Me.lblProjectedBalanceDateHeader.Text = "Projected Balance Date:"
+        Me.lblProjectedBalanceDateHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label6
+        'lblStartingBalanceHeader
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label6.Location = New System.Drawing.Point(734, 82)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(3, 21, 3, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(152, 17)
-        Me.Label6.TabIndex = 6
-        Me.Label6.Text = "Starting Balance:"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.lblStartingBalanceHeader.Location = New System.Drawing.Point(614, 60)
+        Me.lblStartingBalanceHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblStartingBalanceHeader.Name = "lblStartingBalanceHeader"
+        Me.lblStartingBalanceHeader.Size = New System.Drawing.Size(120, 25)
+        Me.lblStartingBalanceHeader.TabIndex = 6
+        Me.lblStartingBalanceHeader.Text = "Starting Balance:"
+        Me.lblStartingBalanceHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label7
+        'lblStartingBalanceDateHeader
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label7.Location = New System.Drawing.Point(892, 82)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(3, 21, 3, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(168, 17)
-        Me.Label7.TabIndex = 7
-        Me.Label7.Text = "Starting Balance Date:"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.lblStartingBalanceDateHeader.Location = New System.Drawing.Point(738, 60)
+        Me.lblStartingBalanceDateHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblStartingBalanceDateHeader.Name = "lblStartingBalanceDateHeader"
+        Me.lblStartingBalanceDateHeader.Size = New System.Drawing.Size(146, 25)
+        Me.lblStartingBalanceDateHeader.TabIndex = 7
+        Me.lblStartingBalanceDateHeader.Text = "Starting Balance Date:"
+        Me.lblStartingBalanceDateHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'dtpProjectedBalanceDate
         '
-        Me.dtpProjectedBalanceDate.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dtpProjectedBalanceDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpProjectedBalanceDate.Location = New System.Drawing.Point(576, 102)
-        Me.dtpProjectedBalanceDate.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
+        Me.dtpProjectedBalanceDate.Location = New System.Drawing.Point(460, 89)
+        Me.dtpProjectedBalanceDate.Margin = New System.Windows.Forms.Padding(2)
         Me.dtpProjectedBalanceDate.Name = "dtpProjectedBalanceDate"
-        Me.dtpProjectedBalanceDate.Size = New System.Drawing.Size(152, 25)
+        Me.dtpProjectedBalanceDate.Size = New System.Drawing.Size(150, 25)
         Me.dtpProjectedBalanceDate.TabIndex = 13
         '
         'dtpStartingBalanceDate
         '
-        Me.dtpStartingBalanceDate.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dtpStartingBalanceDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpStartingBalanceDate.Location = New System.Drawing.Point(892, 102)
-        Me.dtpStartingBalanceDate.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
+        Me.dtpStartingBalanceDate.Location = New System.Drawing.Point(738, 89)
+        Me.dtpStartingBalanceDate.Margin = New System.Windows.Forms.Padding(2)
         Me.dtpStartingBalanceDate.Name = "dtpStartingBalanceDate"
-        Me.dtpStartingBalanceDate.Size = New System.Drawing.Size(168, 25)
+        Me.dtpStartingBalanceDate.Size = New System.Drawing.Size(146, 25)
         Me.dtpStartingBalanceDate.TabIndex = 18
         '
         'lblCurrentBalance
         '
-        Me.lblCurrentBalance.AutoSize = True
         Me.lblCurrentBalance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCurrentBalance.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblCurrentBalance.Location = New System.Drawing.Point(3, 99)
-        Me.lblCurrentBalance.Margin = New System.Windows.Forms.Padding(3, 0, 3, 4)
+        Me.lblCurrentBalance.Location = New System.Drawing.Point(2, 89)
+        Me.lblCurrentBalance.Margin = New System.Windows.Forms.Padding(2)
         Me.lblCurrentBalance.Name = "lblCurrentBalance"
-        Me.lblCurrentBalance.Size = New System.Drawing.Size(355, 28)
+        Me.lblCurrentBalance.Size = New System.Drawing.Size(250, 25)
         Me.lblCurrentBalance.TabIndex = 16
         Me.lblCurrentBalance.Text = "$0.00"
         Me.lblCurrentBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'txtStartingBalance
         '
-        Me.txtStartingBalance.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtStartingBalance.Location = New System.Drawing.Point(734, 102)
-        Me.txtStartingBalance.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
+        Me.txtStartingBalance.Location = New System.Drawing.Point(614, 89)
+        Me.txtStartingBalance.Margin = New System.Windows.Forms.Padding(2)
         Me.txtStartingBalance.Name = "txtStartingBalance"
         Me.txtStartingBalance.PlaceholderText = "$0.00"
-        Me.txtStartingBalance.Size = New System.Drawing.Size(152, 25)
+        Me.txtStartingBalance.Size = New System.Drawing.Size(120, 25)
         Me.txtStartingBalance.TabIndex = 12
         '
         'lblProjectedBalance
         '
-        Me.lblProjectedBalance.AutoSize = True
         Me.lblProjectedBalance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblProjectedBalance.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblProjectedBalance.Location = New System.Drawing.Point(364, 99)
-        Me.lblProjectedBalance.Margin = New System.Windows.Forms.Padding(3, 0, 3, 4)
+        Me.lblProjectedBalance.Location = New System.Drawing.Point(256, 89)
+        Me.lblProjectedBalance.Margin = New System.Windows.Forms.Padding(2)
         Me.lblProjectedBalance.Name = "lblProjectedBalance"
-        Me.lblProjectedBalance.Size = New System.Drawing.Size(206, 28)
+        Me.lblProjectedBalance.Size = New System.Drawing.Size(200, 25)
         Me.lblProjectedBalance.TabIndex = 17
         Me.lblProjectedBalance.Text = "$0.00"
         Me.lblProjectedBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -288,9 +265,8 @@ Partial Class ctlAccount
         Me.Controls.Add(Me.tlpMain)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.MinimumSize = New System.Drawing.Size(1060, 2)
         Me.Name = "ctlAccount"
-        Me.Size = New System.Drawing.Size(1063, 131)
+        Me.Size = New System.Drawing.Size(888, 118)
         Me.tlpMain.ResumeLayout(False)
         Me.tlpMain.PerformLayout()
         Me.ResumeLayout(False)
@@ -299,21 +275,21 @@ Partial Class ctlAccount
     End Sub
 
     Friend WithEvents tlpMain As TableLayoutPanel
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblAccountTypeHeader As Label
     Friend WithEvents txtAccountName As TextBox
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblAccountNameHeader As Label
     Friend WithEvents txtStartingBalance As TextBox
     Friend WithEvents chkVirtualAccount As CheckBox
-    Friend WithEvents Label8 As Label
     Friend WithEvents cmbAccountType As ComboBox
     Friend WithEvents cmbParentAccount As ComboBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label7 As Label
+    Friend WithEvents lblCurrentBalanceHeader As Label
+    Friend WithEvents lblProjectedBalanceHeader As Label
+    Friend WithEvents lblProjectedBalanceDateHeader As Label
+    Friend WithEvents lblStartingBalanceHeader As Label
+    Friend WithEvents lblStartingBalanceDateHeader As Label
     Friend WithEvents dtpProjectedBalanceDate As DateTimePicker
     Friend WithEvents lblCurrentBalance As Label
     Friend WithEvents lblProjectedBalance As Label
     Friend WithEvents dtpStartingBalanceDate As DateTimePicker
+    Friend WithEvents lblParentAccountHeader As Label
 End Class

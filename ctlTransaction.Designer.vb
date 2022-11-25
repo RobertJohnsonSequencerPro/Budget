@@ -23,10 +23,10 @@ Partial Class ctlTransaction
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.tlpMain = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblDateHeader = New System.Windows.Forms.Label()
+        Me.lblAmountHeader = New System.Windows.Forms.Label()
+        Me.lblToAccountHeader = New System.Windows.Forms.Label()
+        Me.lblFromAccountHeader = New System.Windows.Forms.Label()
         Me.rdbPlanned = New System.Windows.Forms.RadioButton()
         Me.rdbCompleted = New System.Windows.Forms.RadioButton()
         Me.cmbFromAccount = New System.Windows.Forms.ComboBox()
@@ -34,22 +34,23 @@ Partial Class ctlTransaction
         Me.txtAmount = New System.Windows.Forms.TextBox()
         Me.dtpDate = New System.Windows.Forms.DateTimePicker()
         Me.cmbTransactionType = New System.Windows.Forms.ComboBox()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.lblTransactionTypeHeader = New System.Windows.Forms.Label()
         Me.tlpMain.SuspendLayout()
         Me.SuspendLayout()
         '
         'tlpMain
         '
         Me.tlpMain.AutoSize = True
+        Me.tlpMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.tlpMain.ColumnCount = 4
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001!))
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114.0!))
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135.0!))
-        Me.tlpMain.Controls.Add(Me.Label4, 3, 0)
-        Me.tlpMain.Controls.Add(Me.Label3, 2, 0)
-        Me.tlpMain.Controls.Add(Me.Label2, 1, 0)
-        Me.tlpMain.Controls.Add(Me.Label1, 0, 0)
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpMain.Controls.Add(Me.lblDateHeader, 3, 0)
+        Me.tlpMain.Controls.Add(Me.lblAmountHeader, 2, 0)
+        Me.tlpMain.Controls.Add(Me.lblToAccountHeader, 1, 0)
+        Me.tlpMain.Controls.Add(Me.lblFromAccountHeader, 0, 0)
         Me.tlpMain.Controls.Add(Me.rdbPlanned, 2, 2)
         Me.tlpMain.Controls.Add(Me.rdbCompleted, 3, 2)
         Me.tlpMain.Controls.Add(Me.cmbFromAccount, 0, 1)
@@ -57,71 +58,65 @@ Partial Class ctlTransaction
         Me.tlpMain.Controls.Add(Me.txtAmount, 2, 1)
         Me.tlpMain.Controls.Add(Me.dtpDate, 3, 1)
         Me.tlpMain.Controls.Add(Me.cmbTransactionType, 1, 2)
-        Me.tlpMain.Controls.Add(Me.Label5, 0, 2)
-        Me.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpMain.Location = New System.Drawing.Point(0, 0)
-        Me.tlpMain.MinimumSize = New System.Drawing.Size(1060, 0)
+        Me.tlpMain.Controls.Add(Me.lblTransactionTypeHeader, 0, 2)
+        Me.tlpMain.Location = New System.Drawing.Point(2, 2)
+        Me.tlpMain.Margin = New System.Windows.Forms.Padding(2)
         Me.tlpMain.Name = "tlpMain"
         Me.tlpMain.RowCount = 3
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpMain.Size = New System.Drawing.Size(1063, 92)
+        Me.tlpMain.Size = New System.Drawing.Size(831, 87)
         Me.tlpMain.TabIndex = 0
         '
-        'Label4
+        'lblDateHeader
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label4.Location = New System.Drawing.Point(930, 8)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(3, 8, 3, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(130, 17)
-        Me.Label4.TabIndex = 3
-        Me.Label4.Text = "Date:"
+        Me.lblDateHeader.Location = New System.Drawing.Point(704, 2)
+        Me.lblDateHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblDateHeader.Name = "lblDateHeader"
+        Me.lblDateHeader.Size = New System.Drawing.Size(125, 25)
+        Me.lblDateHeader.TabIndex = 3
+        Me.lblDateHeader.Text = "Date:"
+        Me.lblDateHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label3
+        'lblAmountHeader
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Location = New System.Drawing.Point(816, 8)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(3, 8, 3, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(108, 17)
-        Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Amount:"
+        Me.lblAmountHeader.Location = New System.Drawing.Point(610, 2)
+        Me.lblAmountHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblAmountHeader.Name = "lblAmountHeader"
+        Me.lblAmountHeader.Size = New System.Drawing.Size(90, 25)
+        Me.lblAmountHeader.TabIndex = 2
+        Me.lblAmountHeader.Text = "Amount:"
+        Me.lblAmountHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label2
+        'lblToAccountHeader
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label2.Location = New System.Drawing.Point(409, 8)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(3, 8, 3, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(401, 17)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "To Account:"
+        Me.lblToAccountHeader.Location = New System.Drawing.Point(306, 2)
+        Me.lblToAccountHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblToAccountHeader.Name = "lblToAccountHeader"
+        Me.lblToAccountHeader.Size = New System.Drawing.Size(300, 25)
+        Me.lblToAccountHeader.TabIndex = 1
+        Me.lblToAccountHeader.Text = "To Account:"
+        Me.lblToAccountHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label1
+        'lblFromAccountHeader
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Location = New System.Drawing.Point(3, 8)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(3, 8, 3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(400, 17)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "From Account:"
+        Me.lblFromAccountHeader.Location = New System.Drawing.Point(2, 2)
+        Me.lblFromAccountHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblFromAccountHeader.Name = "lblFromAccountHeader"
+        Me.lblFromAccountHeader.Size = New System.Drawing.Size(300, 25)
+        Me.lblFromAccountHeader.TabIndex = 0
+        Me.lblFromAccountHeader.Text = "From Account:"
+        Me.lblFromAccountHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'rdbPlanned
         '
-        Me.rdbPlanned.AutoSize = True
         Me.rdbPlanned.Checked = True
-        Me.rdbPlanned.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rdbPlanned.Location = New System.Drawing.Point(816, 64)
-        Me.rdbPlanned.Margin = New System.Windows.Forms.Padding(3, 8, 3, 4)
+        Me.rdbPlanned.Location = New System.Drawing.Point(610, 60)
+        Me.rdbPlanned.Margin = New System.Windows.Forms.Padding(2)
         Me.rdbPlanned.Name = "rdbPlanned"
-        Me.rdbPlanned.Size = New System.Drawing.Size(108, 24)
+        Me.rdbPlanned.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
+        Me.rdbPlanned.Size = New System.Drawing.Size(90, 25)
         Me.rdbPlanned.TabIndex = 4
         Me.rdbPlanned.TabStop = True
         Me.rdbPlanned.Text = "Planned"
@@ -129,73 +124,69 @@ Partial Class ctlTransaction
         '
         'rdbCompleted
         '
-        Me.rdbCompleted.AutoSize = True
-        Me.rdbCompleted.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rdbCompleted.Location = New System.Drawing.Point(930, 64)
-        Me.rdbCompleted.Margin = New System.Windows.Forms.Padding(3, 8, 3, 4)
+        Me.rdbCompleted.Location = New System.Drawing.Point(704, 60)
+        Me.rdbCompleted.Margin = New System.Windows.Forms.Padding(2)
         Me.rdbCompleted.Name = "rdbCompleted"
-        Me.rdbCompleted.Size = New System.Drawing.Size(130, 24)
+        Me.rdbCompleted.Padding = New System.Windows.Forms.Padding(20, 0, 0, 0)
+        Me.rdbCompleted.Size = New System.Drawing.Size(125, 25)
         Me.rdbCompleted.TabIndex = 5
         Me.rdbCompleted.Text = "Completed"
         Me.rdbCompleted.UseVisualStyleBackColor = True
         '
         'cmbFromAccount
         '
-        Me.cmbFromAccount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbFromAccount.FormattingEnabled = True
-        Me.cmbFromAccount.Location = New System.Drawing.Point(3, 28)
+        Me.cmbFromAccount.Location = New System.Drawing.Point(2, 31)
+        Me.cmbFromAccount.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbFromAccount.Name = "cmbFromAccount"
-        Me.cmbFromAccount.Size = New System.Drawing.Size(400, 25)
+        Me.cmbFromAccount.Size = New System.Drawing.Size(300, 25)
         Me.cmbFromAccount.TabIndex = 6
         '
         'cmbToAccount
         '
-        Me.cmbToAccount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbToAccount.FormattingEnabled = True
-        Me.cmbToAccount.Location = New System.Drawing.Point(409, 28)
+        Me.cmbToAccount.Location = New System.Drawing.Point(306, 31)
+        Me.cmbToAccount.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbToAccount.Name = "cmbToAccount"
-        Me.cmbToAccount.Size = New System.Drawing.Size(401, 25)
+        Me.cmbToAccount.Size = New System.Drawing.Size(300, 25)
         Me.cmbToAccount.TabIndex = 7
         '
         'txtAmount
         '
-        Me.txtAmount.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtAmount.Location = New System.Drawing.Point(816, 28)
+        Me.txtAmount.Location = New System.Drawing.Point(610, 31)
+        Me.txtAmount.Margin = New System.Windows.Forms.Padding(2)
         Me.txtAmount.Name = "txtAmount"
         Me.txtAmount.PlaceholderText = "$0.00"
-        Me.txtAmount.Size = New System.Drawing.Size(108, 25)
+        Me.txtAmount.Size = New System.Drawing.Size(90, 25)
         Me.txtAmount.TabIndex = 8
         '
         'dtpDate
         '
-        Me.dtpDate.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDate.Location = New System.Drawing.Point(930, 28)
+        Me.dtpDate.Location = New System.Drawing.Point(704, 31)
+        Me.dtpDate.Margin = New System.Windows.Forms.Padding(2)
         Me.dtpDate.Name = "dtpDate"
-        Me.dtpDate.Size = New System.Drawing.Size(130, 25)
+        Me.dtpDate.Size = New System.Drawing.Size(125, 25)
         Me.dtpDate.TabIndex = 9
         '
         'cmbTransactionType
         '
-        Me.cmbTransactionType.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbTransactionType.FormattingEnabled = True
-        Me.cmbTransactionType.Location = New System.Drawing.Point(409, 64)
-        Me.cmbTransactionType.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
+        Me.cmbTransactionType.Location = New System.Drawing.Point(306, 60)
+        Me.cmbTransactionType.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbTransactionType.Name = "cmbTransactionType"
-        Me.cmbTransactionType.Size = New System.Drawing.Size(401, 25)
+        Me.cmbTransactionType.Size = New System.Drawing.Size(300, 25)
         Me.cmbTransactionType.TabIndex = 10
         '
-        'Label5
+        'lblTransactionTypeHeader
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label5.Location = New System.Drawing.Point(3, 60)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(400, 32)
-        Me.Label5.TabIndex = 11
-        Me.Label5.Text = "Transaction Type"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblTransactionTypeHeader.Location = New System.Drawing.Point(2, 60)
+        Me.lblTransactionTypeHeader.Margin = New System.Windows.Forms.Padding(2)
+        Me.lblTransactionTypeHeader.Name = "lblTransactionTypeHeader"
+        Me.lblTransactionTypeHeader.Size = New System.Drawing.Size(300, 25)
+        Me.lblTransactionTypeHeader.TabIndex = 11
+        Me.lblTransactionTypeHeader.Text = "Transaction Type"
+        Me.lblTransactionTypeHeader.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'ctlTransaction
         '
@@ -210,7 +201,7 @@ Partial Class ctlTransaction
         Me.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "ctlTransaction"
-        Me.Size = New System.Drawing.Size(1063, 92)
+        Me.Size = New System.Drawing.Size(835, 91)
         Me.tlpMain.ResumeLayout(False)
         Me.tlpMain.PerformLayout()
         Me.ResumeLayout(False)
@@ -219,10 +210,10 @@ Partial Class ctlTransaction
     End Sub
 
     Friend WithEvents tlpMain As TableLayoutPanel
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblDateHeader As Label
+    Friend WithEvents lblAmountHeader As Label
+    Friend WithEvents lblToAccountHeader As Label
+    Friend WithEvents lblFromAccountHeader As Label
     Friend WithEvents rdbPlanned As RadioButton
     Friend WithEvents rdbCompleted As RadioButton
     Friend WithEvents cmbFromAccount As ComboBox
@@ -230,5 +221,5 @@ Partial Class ctlTransaction
     Friend WithEvents txtAmount As TextBox
     Friend WithEvents dtpDate As DateTimePicker
     Friend WithEvents cmbTransactionType As ComboBox
-    Friend WithEvents Label5 As Label
+    Friend WithEvents lblTransactionTypeHeader As Label
 End Class

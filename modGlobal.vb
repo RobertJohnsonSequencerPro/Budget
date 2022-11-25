@@ -2,10 +2,16 @@
 Option Explicit On
 
 
-Module modGLobal
+Module modGlobal
 
 #Region "Constants"
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Const LocalDBPath As String = "C:\ProgramData\Budget\"
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Const LocalDBFileName As String = "Budget.db"
 #End Region
 
@@ -21,7 +27,9 @@ Module modGLobal
 
 
 #Region "Enumerations"
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Enum AccountTypes
         Income
         Cash
@@ -29,18 +37,30 @@ Module modGLobal
         Debt
         Expense
     End Enum
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Enum TransactionTypes
         Earn
+        'From Income Account to Cash Account.
         Save
-        Reallocate
+        'From Cash Account to Savings Account.
+        'Reallocate
+        'Purpose is unclear for the Reallocate transaction type and so is deprecated.
         Liquidate
+        'From Savings to Cash
         Payoff
+        'From Cash to Debt
         Spend_Cash
+        'From Cash to Expense
         Spend_on_Credit
+        'From Debt to Expense
         Borrow_Cash
+        'From Debt to Cash
     End Enum
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Enum SQLiteDataTypePrefixes
         int
         'INTEGER
@@ -57,7 +77,9 @@ Module modGLobal
         dbl
         'REAL
     End Enum
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
 #Region "Datatable Enums"
     Public Enum Accounts
         txtGUID
@@ -67,50 +89,28 @@ Module modGLobal
         decStartingBalance
         datDateOfStartingBalance
         txtAccountType
-        txtSubAccountToAccountName
+        txtSubAccountToAccountID
     End Enum
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Public Enum Transactions
         txtGUID
         datRecordCreated
         booIsDeleted
         datTransactionDate
         decAmount
-        txtFromAccount
-        txtToAccount
+        txtFromAccountID
+        txtToAccountID
         txtTransactionType
         booIsCompleted
     End Enum
 
-    Public Enum CalculatedAccountBalance
-        txtGUID
-        datRecordCreated
-        booIsDeleted
-        txtAccountGUID
-        decBalance
-    End Enum
 #End Region
 
 #End Region
 
 #Region "Objects"
-    'Default accounts
-    Public Checking As Accounts
-    Public Saving As Accounts
-    Public Income As Accounts
-    Public Rent As Accounts
-    Public Mortgage As Accounts
-    Public Utilties As Accounts
-    Public Fuel As Accounts
-    Public Food As Accounts
-    Public Car_Insurance As Accounts
-    Public Health_Care As Accounts
-    Public Credit_Card_Debt As Accounts
-    Public Save_For_Car_Maintenance As Accounts
-    Public Clothing As Accounts
-    Public Save_For_School_Expense As Accounts
-    Public Save_For_Vacation As Accounts
-    Public Save_For_Gifts As Accounts
 
 #End Region
 
@@ -119,23 +119,14 @@ Module modGLobal
 #End Region
 
 #Region "Methods"
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
     Public Function DBConnectionString() As String
         Dim LocalDBFullPath = LocalDBPath & LocalDBFileName
         Return (String.Format("Data Source = {0}", LocalDBFullPath))
     End Function
-
-    Public Sub CreateDataBase()
-
-    End Sub
-
-
-    Public Sub InitializeDefaultAccounts()
-
-    End Sub
-
-
-
 
 #End Region
 
